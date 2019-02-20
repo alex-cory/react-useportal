@@ -7929,6 +7929,15 @@ react-scripts@2.1.5:
   optionalDependencies:
     fsevents "1.2.4"
 
+react-useportal@^0.1.13:
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/react-useportal/-/react-useportal-0.1.13.tgz#86701f462fd2c2e388b4f6b0312af7c3a1dac129"
+  integrity sha512-i6H042inBU3Yzhf+EfFWHBe+MN3bo1NacPltQI/JHEiOsR85jk+oa89x0hDRi69naR5izU4KaLTGytRZ2diNUw==
+  dependencies:
+    react "^16.8.2"
+    react-dom "^16.8.2"
+    react-scripts "2.1.5"
+
 react@^16.8.2:
   version "16.8.2"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.2.tgz#83064596feaa98d9c2857c4deae1848b542c9c0c"
