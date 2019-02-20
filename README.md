@@ -3,13 +3,15 @@
 
 > Struggling with modals, lightboxes or loading bars in React? React-portal creates a new top-level React tree and injects its children into it. That's necessary for proper styling (especially positioning).
 
-## Installation
+Installation
+------------
 
 ```shell
 yarn add react react-dom react-useportal
 ```
 
-## Usage
+Usage
+-----
 
 ### Stateless
 ```jsx 
@@ -63,3 +65,20 @@ Options
 | `renderBelowClickedElement` | This will put the portal right under the element that you click on. Great for dropdowns. |
 | `bindTo` | This is the DOM node you want to attach the portal to. By default it attaches to `document.body` |
 | `isOpen` | This will be the default for the portal. Default is `false` |
+
+### Option Usage
+```js
+const {
+  openPortal,
+  closePortal,
+  togglePortal,
+  isOpen,
+  Portal
+} = usePortal({
+  closeOnOutsideClick: true,
+  closeOnEsc: true,
+  renderBelowClickedElement, // appear directly under the clicked element/node in the DOM
+  bindTo, // attach the portal to this node in the DOM
+  isOpen: false,
+})
+```
