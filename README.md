@@ -1,68 +1,65 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# usePortal
+⏱ A React hook for using Portals
 
-## Available Scripts
+> Struggling with modals, lightboxes or loading bars in React? React-portal creates a new top-level React tree and injects its children into it. That's necessary for proper styling (especially positioning).
 
-In the project directory, you can run:
+## Installation
 
-### `npm start`
+```shell
+yarn add react react-dom react-useportal
+```
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Usage
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Stateless
+```jsx 
+import usePortal from 'react-useportal'
 
-### `npm test`
+<Portal>
+  This text is portaled at the end of document.body!
+</Portal>
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<Portal bindTo={document && document.getElementById('san-francisco')}>
+  This text is portaled into San Francisco!
+</Portal>
+```
 
-### `npm run build`
+### With State
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```jsx 
+import usePortal from 'react-useportal'
 
-### `npm run eject`
+const App = () => {
+  const { openPortal, closePortal, Portal } = usePortal()
+  return (
+    <React.Fragment>
+      <button onClick={openPortal}>
+        Open Portal
+      </button>
+      <Portal>
+        <p>
+          This is more advanced Portal. It handles its own state.{' '}
+          <button onClick={closePortal}>Close me!</button>, hit ESC or
+          click outside of me.
+        </p>
+      </Portal>
+    </React.Fragment>
+  )
+}
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Examples
+- [Modal Codepen Example](https://codepen.io/alex-cory/pen/zeJxOo?editors=0010)
+- [Select Dropdown Codepen Example](https://codepen.io/alex-cory/pen/GzyQLa)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Options
+-----
+| Option                | Description                                                                              |
+| --------------------- | ---------------------------------------------------------------------------------------- |
+| `closeOnOutsideClick` | This will close the portal when not clicking within the portal. Default is `true` |
+| `closeOnEsc`   | This will allow you to hit ESC and it will close the modal. Default is `true`    |
+| `renderBelowClickedElement` | This will put the portal right under the element that you click on. Great for dropdowns. |
+| `bindTo` | This is the DOM node you want to attach the portal to. By default it attaches to `document.body` |
+| `isOpen` | This will be the default for the portal. Default is `false` |
