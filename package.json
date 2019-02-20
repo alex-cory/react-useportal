@@ -1,0 +1,32 @@
+{
+  "name": "react-useportal",
+  "version": "0.1.12",
+  "homepage": "https://codepen.io/alex-cory/pen/zeJxOo?editors=0010",
+  "main": "/usePortal-compiled.js",
+  "description": "⏱ React hook for Portals",
+  "author": "Alex Cory <results@alexcory.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-scripts": "2.1.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "build-component": "export NODE_ENV=development && export BABEL_ENV=$NODE_ENV && babel src/usePortal.js --out-file ./usePortal-compiled.js",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "publish": "yarn build-component && yarn publish"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
