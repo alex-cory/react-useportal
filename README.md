@@ -54,7 +54,6 @@ const App = () => {
 
 ### Examples
 - [Modal Codepen Example](https://codepen.io/alex-cory/pen/zeJxOo?editors=0010)
-- [Select Dropdown Codepen Example](https://codepen.io/alex-cory/pen/GzyQLa)
 
 Options
 -----
