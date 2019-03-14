@@ -1,7 +1,7 @@
 # usePortal
 🌀 A React hook for using Portals
 
-> Struggling with modals, lightboxes or loading bars in React? React-portal creates a new top-level React tree and injects its children into it. That's necessary for proper styling (especially positioning).
+> Need to make dropdowns, lightboxes, modals, or loading animations in React? React Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component ([react docs](https://reactjs.org/docs/portals.html)).
 
 Installation
 ------------
