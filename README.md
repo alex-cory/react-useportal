@@ -34,14 +34,38 @@ import usePortal from 'react-useportal'
 import usePortal from 'react-useportal'
 
 const App = () => {
-  const { openPortal, closePortal, Portal } = usePortal()
+  const { openPortal, closePortal, isOpen, Portal } = usePortal()
+  return (
+    <React.Fragment>
+      <button onClick={openPortal}>
+        Open Portal
+      </button>
+      {isOpen && (
+        <Portal>
+          <p>
+            This is more advanced Portal. It handles its own state.{' '}
+            <button onClick={closePortal}>Close me!</button>, hit ESC or
+            click outside of me.
+          </p>
+        </Portal>
+      )}
+    </React.Fragment>
+  )
+}
+```
+### Need Animations?
+```jsx 
+import usePortal from 'react-useportal'
+
+const App = () => {
+  const { openPortal, closePortal, isOpen, Portal } = usePortal()
   return (
     <React.Fragment>
       <button onClick={openPortal}>
         Open Portal
       </button>
       <Portal>
-        <p>
+        <p className={isOpen ? 'animateIn' : 'animateOut'}>
           This is more advanced Portal. It handles its own state.{' '}
           <button onClick={closePortal}>Close me!</button>, hit ESC or
           click outside of me.
