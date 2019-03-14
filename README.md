@@ -1,7 +1,7 @@
 # usePortal
 🌀 A React hook for using Portals
 
-> Need to make dropdowns, lightboxes, modals, or loading animations in React? React Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component ([react docs](https://reactjs.org/docs/portals.html)).
+> Need to make dropdowns, lightboxes/modals/dialogs, or loading animations in React? React Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component ([react docs](https://reactjs.org/docs/portals.html)).
 
 Installation
 ------------
