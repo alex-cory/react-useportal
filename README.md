@@ -3,6 +3,11 @@
 
 > Need to make dropdowns, lightboxes/modals/dialogs, or loading animations in React? React Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component ([react docs](https://reactjs.org/docs/portals.html)).
 
+
+### Examples
+- [Modal Codepen Example](https://codepen.io/alex-cory/pen/zeJxOo?editors=0010)
+
+
 Installation
 ------------
 
@@ -75,9 +80,6 @@ const App = () => {
   )
 }
 ```
-
-### Examples
-- [Modal Codepen Example](https://codepen.io/alex-cory/pen/zeJxOo?editors=0010)
 
 Options
 -----
