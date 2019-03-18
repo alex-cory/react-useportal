@@ -58,6 +58,6 @@ export default function usePortal({
     openPortal,
     closePortal: () => setOpen(false),
     togglePortal: e => isOpen ? setOpen(false) : openPortal(e),
-    Portal: ({ children }) => isOpen && createPortal(children, portal.current)
+    Portal: ({ children }) => createPortal(children, portal.current)
   }
 }
