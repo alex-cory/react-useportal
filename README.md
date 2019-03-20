@@ -5,7 +5,7 @@
 
 
 ### Examples
-- <a href='https://codepen.io/alex-cory/pen/zeJxOo?editors=0010' target='_blank'>Modal Codepen Example</a>
+- <a target="_blank" rel="noopener noreferrer" href='https://codepen.io/alex-cory/pen/zeJxOo?editors=0010'>Modal Codepen Example</a>
 
 
 Installation
