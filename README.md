@@ -1,7 +1,12 @@
-# usePortal
-🌀 A React hook for using Portals
+<h1 align="center">usePortal</h1>
+<p align="center">🌀 A React hook for using Portals</p>
+<p align="center">
+    <a href="https://github.com/alex-cory/react-useportal/pulls">
+      <img src="https://camo.githubusercontent.com/d4e0f63e9613ee474a7dfdc23c240b9795712c96/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5052732d77656c636f6d652d627269676874677265656e2e737667" />
+    </a>
+</p>
 
-> Need to make dropdowns, lightboxes/modals/dialogs, global message notifications, or tooltips in React? React Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component ([react docs](https://reactjs.org/docs/portals.html)).
+Need to make dropdowns, lightboxes/modals/dialogs, global message notifications, or tooltips in React? React Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component ([react docs](https://reactjs.org/docs/portals.html)).
 
 <p align="center">
   <a href="https://github.com/alex-cory/react-useportal">
