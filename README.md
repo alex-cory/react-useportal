@@ -3,6 +3,9 @@
 
 > Need to make dropdowns, lightboxes/modals/dialogs, global message notifications, or tooltips in React? React Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component ([react docs](https://reactjs.org/docs/portals.html)).
 
+<p align="center">
+  <img src="https://github.com/alex-cory/react-useportal/raw/master/public/usePortal3.gif" />
+</p>
 
 ### Examples
 - <a target="_blank" rel="noopener noreferrer" href='https://codepen.io/alex-cory/pen/zeJxOo?editors=0010'>Modal Codepen Example</a>
