@@ -1,7 +1,22 @@
-# usePortal
-⏱ A React hook for using Portals
+<h1 align="center">usePortal</h1>
+<p align="center">🌀 A React hook for using Portals</p>
+<p align="center">
+    <a href="https://github.com/alex-cory/react-useportal/pulls">
+      <img src="https://camo.githubusercontent.com/d4e0f63e9613ee474a7dfdc23c240b9795712c96/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5052732d77656c636f6d652d627269676874677265656e2e737667" />
+    </a>
+</p>
 
-> Struggling with modals, lightboxes or loading bars in React? React-portal creates a new top-level React tree and injects its children into it. That's necessary for proper styling (especially positioning).
+Need to make dropdowns, lightboxes/modals/dialogs, global message notifications, or tooltips in React? React Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component ([react docs](https://reactjs.org/docs/portals.html)).
+
+<p align="center">
+  <a href="https://github.com/alex-cory/react-useportal">
+    <img src="https://github.com/alex-cory/react-useportal/raw/master/public/usePortal3.gif" />
+  </a>
+</p>
+
+### Examples
+- <a target="_blank" rel="noopener noreferrer" href='https://codepen.io/alex-cory/pen/zeJxOo?editors=0010'>Modal Codepen Example</a>
+
 
 Installation
 ------------
@@ -34,14 +49,38 @@ import usePortal from 'react-useportal'
 import usePortal from 'react-useportal'
 
 const App = () => {
-  const { openPortal, closePortal, Portal } = usePortal()
+  const { openPortal, closePortal, isOpen, Portal } = usePortal()
+  return (
+    <React.Fragment>
+      <button onClick={openPortal}>
+        Open Portal
+      </button>
+      {isOpen && (
+        <Portal>
+          <p>
+            This is more advanced Portal. It handles its own state.{' '}
+            <button onClick={closePortal}>Close me!</button>, hit ESC or
+            click outside of me.
+          </p>
+        </Portal>
+      )}
+    </React.Fragment>
+  )
+}
+```
+### Need Animations?
+```jsx 
+import usePortal from 'react-useportal'
+
+const App = () => {
+  const { openPortal, closePortal, isOpen, Portal } = usePortal()
   return (
     <React.Fragment>
       <button onClick={openPortal}>
         Open Portal
       </button>
       <Portal>
-        <p>
+        <p className={isOpen ? 'animateIn' : 'animateOut'}>
           This is more advanced Portal. It handles its own state.{' '}
           <button onClick={closePortal}>Close me!</button>, hit ESC or
           click outside of me.
@@ -51,10 +90,6 @@ const App = () => {
   )
 }
 ```
-
-### Examples
-- [Modal Codepen Example](https://codepen.io/alex-cory/pen/zeJxOo?editors=0010)
-- [Select Dropdown Codepen Example](https://codepen.io/alex-cory/pen/GzyQLa)
 
 Options
 -----
