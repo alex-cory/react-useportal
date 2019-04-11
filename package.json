@@ -1,6 +1,6 @@
 {
   "name": "react-useportal",
-  "version": "0.1.15",
+  "version": "0.1.17",
   "homepage": "https://codepen.io/alex-cory/pen/zeJxOo?editors=0010",
   "main": "/usePortal-compiled.js",
   "description": "🌀 React hook for Portals",
