@@ -1,4 +1,4 @@
-import usePortal from './usePortal-compiled'
+import { usePortal } from './src/usePortal'
 
 export default usePortal
 export {

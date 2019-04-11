@@ -1,23 +1,32 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import styled from 'styled-components'
 import './App.css';
 import usePortal from 'react-useportal'
 console.log('USE PORTAL : ', usePortal)
 
+const Box = styled.div`
+  width: 100px;
+  height: 100px;
+  border: 2px solid blue;
+`
+
 const App = () => {
-  const { Portal } = usePortal({
-    isOpen: true,
+  const { Portal, togglePortal } = usePortal({
     renderBelowClickedElement: true
   })
   return (
     <div className="App">
-      <header className="App-header">
+      <header onClick={togglePortal} className="App-header">
         <Portal>
+          <Box>
           HELLO WORLD
+
+          </Box>
         </Portal>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          CLICK ME
         </p>
         <a
           className="App-link"

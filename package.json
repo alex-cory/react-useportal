@@ -1,8 +1,8 @@
 {
   "name": "react-useportal",
-  "version": "0.1.17",
+  "version": "0.1.20",
   "homepage": "https://codepen.io/alex-cory/pen/zeJxOo?editors=0010",
-  "main": "/usePortal-compiled.js",
+  "main": "/index.js",
   "description": "🌀 React hook for Portals",
   "author": "Alex Cory <results@alexcory.com>",
   "license": "MIT",
@@ -11,7 +11,8 @@
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-scripts": "2.1.5",
-    "react-useportal": "^0.1.13"
+    "react-useportal": "^0.1.13",
+    "styled-components": "^4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
