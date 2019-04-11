@@ -27,17 +27,17 @@ export const usePortal = ({
     const { left, top, height } = e.target.getBoundingClientRect()
     if (renderOnClickedElement) {
       portal.current.style = `
-      height: 0px;
-      position: absolute;
-      left: ${left}px;
-      top: ${top}px;
-    `
+        height: 0px;
+        position: absolute;
+        left: ${left}px;
+        top: ${top}px;
+      `
     } else if (renderBelowClickedElement) {
       portal.current.style = `
-      position: absolute;
-      left: ${left}px;
-      top: ${top + height}px;
-    `
+        position: absolute;
+        left: ${left}px;
+        top: ${top + height}px;
+      `
     }
     stateful && setOpen(true)
   }, [stateful, setOpen, portal, renderOnClickedElement])
