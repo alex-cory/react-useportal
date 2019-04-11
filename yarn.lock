@@ -7999,6 +7999,16 @@ react-useportal@^0.1.13:
     react-dom "^16.8.2"
     react-scripts "2.1.5"
 
+react-useportal@^0.1.17:
+  version "0.1.17"
+  resolved "https://registry.yarnpkg.com/react-useportal/-/react-useportal-0.1.17.tgz#1e5c88c30b65b85db3dc3d1ef42b47c82c1a6fb7"
+  integrity sha512-QbWSnTMAE0xXAZrYOYNl5nJH1zuOBhvBX1veWdbN4v/oWlIy3WkusKX8PTDIltx+WOvfQlM6NiiuutYZWN2vEQ==
+  dependencies:
+    react "^16.8.2"
+    react-dom "^16.8.2"
+    react-scripts "2.1.5"
+    react-useportal "^0.1.13"
+
 react@^16.8.2:
   version "16.8.2"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.2.tgz#83064596feaa98d9c2857c4deae1848b542c9c0c"
