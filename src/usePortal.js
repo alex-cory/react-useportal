@@ -17,10 +17,10 @@ export const usePortal = ({
   const elToMountTo = (bindTo && findDOMNode(bindTo)) || (document && document.body)
 
   const handleKeydown = useCallback(e => {
-      var ESC = 27
-      if (!closeOnEsc) return
-      e.keyCode === ESC && stateful && setOpen(false)
-    }, [stateful])
+    var ESC = 27
+    if (!closeOnEsc) return
+    e.keyCode === ESC && stateful && setOpen(false)
+  }, [stateful])
 
   const openPortal = useCallback(e => {
     if (e && e.nativeEvent) e.nativeEvent.stopImmediatePropagation()
@@ -42,13 +42,10 @@ export const usePortal = ({
     stateful && setOpen(true)
   }, [stateful, setOpen, portal, renderOnClickedElement])
 
-  const handleOutsideMouseClick = useCallback(
-    ({ target, button }) => {
-      if (portal.current.contains(target) || button !== 0) return
-      stateful && setOpen(false)
-    },
-    [stateful, setOpen]
-  )
+  const handleOutsideMouseClick = useCallback(({ target, button }) => {
+    if (portal.current.contains(target) || button !== 0) return
+    stateful && setOpen(false)
+  }, [stateful, setOpen])
 
   useEffect(() => {
     elToMountTo.appendChild(portal.current)
