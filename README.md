@@ -18,7 +18,7 @@ Need to make dropdowns, lightboxes/modals/dialogs, global message notifications,
 </p>
 
 ### Examples
-- <a target="_blank" rel="noopener noreferrer" href='https://codepen.io/alex-cory/pen/zeJxOo?editors=0010'>Modal Codepen Example</a>
+- <a target="_blank" rel="noopener noreferrer" href='https://codesandbox.io/s/w6jp7z4pkk'>Code Sandbox Example</a>
 
 
 Installation
