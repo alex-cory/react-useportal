@@ -1,6 +1,6 @@
 {
   "name": "react-useportal",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "homepage": "https://codepen.io/alex-cory/pen/zeJxOo?editors=0010",
   "main": "index.js",
   "keywords": [
@@ -19,6 +19,10 @@
     "react-use-portal",
     "transportation"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alex-cory/react-useportal.git"
+  },
   "description": "🌀 React hook for Portals",
   "author": "Alex Cory <results@alexcory.com>",
   "license": "MIT",
