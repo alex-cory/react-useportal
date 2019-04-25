@@ -13,7 +13,7 @@ Need to make dropdowns, lightboxes/modals/dialogs, global message notifications,
 
 <p align="center">
   <a href="https://github.com/alex-cory/react-useportal">
-    <img src="https://github.com/alex-cory/react-useportal/raw/master/public/usePortal3.gif" />
+    <img src="https://github.com/alex-cory/react-useportal/raw/master/public/usePortal.gif" />
   </a>
 </p>
 

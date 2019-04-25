@@ -1,8 +1,8 @@
 {
-  "name": "react-useportal",
-  "version": "0.1.25",
+  "name": "use-portal",
+  "version": "0.1.27",
   "homepage": "https://codesandbox.io/s/w6jp7z4pkk",
-  "main": "index.js",
+  "main": "dist/usePortal.js",
   "keywords": [
     "react",
     "hook",
@@ -27,28 +27,18 @@
   "author": "Alex Cory <results@alexcory.com>",
   "license": "MIT",
   "private": false,
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
   "dependencies": {
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
-    "react-scripts": "2.1.5",
-    "react-useportal": "^0.1.17",
-    "styled-components": "^4.2.0"
+    "react": "^16.8.6"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3",
+    "react-dom": "^16.8.6"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "build-component": "export NODE_ENV=development && export BABEL_ENV=$NODE_ENV && babel src/usePortal.js --out-file ./usePortal-compiled.js",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "publish": "yarn build-component && yarn publish"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+    "dev": "parcel examples/index.html --open",
+    "build": "parcel build --target node ./src/*"
+  }
 }
