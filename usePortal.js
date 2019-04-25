@@ -44,7 +44,7 @@ export const usePortal = ({
 
   const handleOutsideMouseClick = useCallback(({ target, button }) => {
     if (portal.current.contains(target) || button !== 0) return
-    stateful && setOpen(false)
+    stateful && closeOnOutsideClick && setOpen(false)
   }, [stateful, setOpen])
 
   useEffect(() => {
