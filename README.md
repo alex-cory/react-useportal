@@ -120,3 +120,6 @@ const {
   isOpen: false,
 })
 ```
+Todos
+------
+- add support for popup windows [resource 1](https://javascript.info/popup-windows) [resource 2](https://hackernoon.com/using-a-react-16-portal-to-do-something-cool-2a2d627b0202)
