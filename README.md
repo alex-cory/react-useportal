@@ -54,7 +54,7 @@ import usePortal from 'react-useportal'
 const App = () => {
   const { openPortal, closePortal, isOpen, Portal } = usePortal()
   return (
-    <React.Fragment>
+    <>
       <button onClick={openPortal}>
         Open Portal
       </button>
@@ -67,7 +67,7 @@ const App = () => {
           </p>
         </Portal>
       )}
-    </React.Fragment>
+    </>
   )
 }
 ```
@@ -78,7 +78,7 @@ import usePortal from 'react-useportal'
 const App = () => {
   const { openPortal, closePortal, isOpen, Portal } = usePortal()
   return (
-    <React.Fragment>
+    <>
       <button onClick={openPortal}>
         Open Portal
       </button>
@@ -89,7 +89,7 @@ const App = () => {
           click outside of me.
         </p>
       </Portal>
-    </React.Fragment>
+    </>
   )
 }
 ```
