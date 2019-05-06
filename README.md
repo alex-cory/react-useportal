@@ -61,7 +61,7 @@ const App = () => {
       {isOpen && (
         <Portal>
           <p>
-            This is more advanced Portal. It handles its own state.{' '}
+            This Portal handles its own state.{' '}
             <button onClick={closePortal}>Close me!</button>, hit ESC or
             click outside of me.
           </p>
@@ -84,7 +84,7 @@ const App = () => {
       </button>
       <Portal>
         <p className={isOpen ? 'animateIn' : 'animateOut'}>
-          This is more advanced Portal. It handles its own state.{' '}
+          This Portal handles its own state.{' '}
           <button onClick={closePortal}>Close me!</button>, hit ESC or
           click outside of me.
         </p>
@@ -122,11 +122,11 @@ const {
 ```
 Todos
 ------
-- add support for popup windows [resource 1](https://javascript.info/popup-windows) [resource 2](https://hackernoon.com/using-a-react-16-portal-to-do-something-cool-2a2d627b0202). Maybe something like
+- [ ] add support for popup windows [resource 1](https://javascript.info/popup-windows) [resource 2](https://hackernoon.com/using-a-react-16-portal-to-do-something-cool-2a2d627b0202). Maybe something like
 ```jsx
   const { openPortal, closePortal, isOpen, Portal } = usePortal({
     popup: ['', '', 'width=600,height=400,left=200,top=200']
   })
   // window.open('', '', 'width=600,height=400,left=200,top=200')
 ```
-- make isomorphic
+- [ ] make isomorphic
