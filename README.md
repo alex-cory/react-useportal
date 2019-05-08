@@ -45,14 +45,15 @@ import usePortal from 'react-useportal'
 ```
 
 ### With State
-
-
-
 ```jsx 
 import usePortal from 'react-useportal'
 
 const App = () => {
-  const { openPortal, closePortal, isOpen, Portal } = usePortal()
+  var { openPortal, closePortal, isOpen, Portal } = usePortal()
+
+  // want to use array destructuring? You can do that too
+  var [openPortal, closePortal, isOpen, Portal] = usePortal()
+
   return (
     <>
       <button onClick={openPortal}>
@@ -71,6 +72,7 @@ const App = () => {
   )
 }
 ```
+
 ### Need Animations?
 ```jsx 
 import usePortal from 'react-useportal'
