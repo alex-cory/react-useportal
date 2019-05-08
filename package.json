@@ -1,6 +1,6 @@
 {
-  "name": "use-portal",
-  "version": "0.1.27",
+  "name": "react-useportal",
+  "version": "0.1.29",
   "homepage": "https://codesandbox.io/s/w6jp7z4pkk",
   "main": "dist/usePortal.js",
   "keywords": [
