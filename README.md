@@ -4,6 +4,9 @@
     <a href="https://github.com/alex-cory/react-useportal/pulls">
       <img src="https://camo.githubusercontent.com/d4e0f63e9613ee474a7dfdc23c240b9795712c96/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5052732d77656c636f6d652d627269676874677265656e2e737667" />
     </a>
+    <a href="https://lgtm.com/projects/g/alex-cory/react-useportal/context:javascript">
+      <img alt="undefined" src="https://img.shields.io/lgtm/grade/javascript/g/alex-cory/react-useportal.svg?logo=lgtm&logoWidth=18"/>
+    </a>
     <a href="https://www.npmjs.com/package/react-useportal">
         <img src="https://img.shields.io/npm/dt/react-useportal.svg" />
     </a>
