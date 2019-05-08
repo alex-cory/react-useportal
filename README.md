@@ -131,3 +131,5 @@ Todos
   // window.open('', '', 'width=600,height=400,left=200,top=200')
 ```
 - [ ] make isomorphic
+- [ ] make work without requiring the html synthetic event & document when you are required to have it and when you are not
+- [ ] clean up code
