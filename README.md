@@ -133,6 +133,5 @@ Todos
   // window.open('', '', 'width=600,height=400,left=200,top=200')
 ```
 - [ ] make isomorphic
-- [ ] make work without requiring the html synthetic event & document when you are required to have it and when you are not
+- [ ] make documentation for when the html synthetic event is required
 - [ ] clean up code
-- [ ] make work with both `[openPortal, closePortal, ..., Portal] = usePortal()` and like current object destructuring
