@@ -93,6 +93,7 @@ const App = () => {
   )
 }
 ```
+**Make sure you are passing the html synthetic event to the `openPortal`. i.e. `onClick={e => openPortal(e)}`**
 
 Options
 -----
