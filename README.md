@@ -101,7 +101,7 @@ Options
 | --------------------- | ---------------------------------------------------------------------------------------- |
 | `closeOnOutsideClick` | This will close the portal when not clicking within the portal. Default is `true` |
 | `closeOnEsc`   | This will allow you to hit ESC and it will close the modal. Default is `true`    |
-| `renderBelowClickedElement` | This will put the portal right under the element that you click on. Great for dropdowns. |
+| `renderBelowClickedElement` | This will put the portal right under the element that you click on. Great for dropdowns. Required to pass event to openPortal `onClick={event => openPortal(event)}` |
 | `bindTo` | This is the DOM node you want to attach the portal to. By default it attaches to `document.body` |
 | `isOpen` | This will be the default for the portal. Default is `false` |
 
