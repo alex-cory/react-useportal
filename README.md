@@ -28,7 +28,7 @@ Installation
 ------------
 
 ```shell
-yarn add react react-dom react-useportal
+yarn add react-useportal      or     npm i -S react-useportal
 ```
 
 Usage
