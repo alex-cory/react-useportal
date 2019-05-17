@@ -1,4 +1,6 @@
-<h1 align="center">usePortal</h1>
+<p style="text-align: center;" align="center">
+    <h1 align="center">usePortal</h1>
+</p>
 <p align="center">🌀 React hook for using Portals</p>
 <p align="center">
     <a href="https://github.com/alex-cory/react-useportal/pulls">
@@ -9,6 +11,9 @@
     </a>
     <a href="https://www.npmjs.com/package/react-useportal">
         <img src="https://img.shields.io/npm/dt/react-useportal.svg" />
+    </a>
+    <a href="https://bundlephobia.com/result?p=react-useportal">
+      <img alt="undefined" src="https://img.shields.io/bundlephobia/minzip/react-useportal.svg">
     </a>
 </p>
 
@@ -144,12 +149,7 @@ Todos
   })
   // window.open('', '', 'width=600,height=400,left=200,top=200')
 ```
-<<<<<<< HEAD
 - [X] make isomorphic
 - [ ] see if it's reliable to rely on react's internals for determining whether we're on the server or not. [Here](https://github.com/JedWatson/exenv) it says not to, but that was also 3 years ago.
 - [ ] make work without requiring the html synthetic event & document when you are required to have it and when you are not
-=======
-- [ ] make isomorphic
-- [ ] make documentation for when the html synthetic event is required
->>>>>>> 090668bd4a707f6683ff2e2ad983ef48bae2e432
 - [ ] clean up code
