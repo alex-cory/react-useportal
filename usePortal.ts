@@ -45,7 +45,6 @@ export function usePortal({
     }
   })
 
-  // const [isClient, setIsClient] = useState(process.browser)
   const [isOpen, makeOpen] = useState(defaultIsOpen)
   const open = useRef(isOpen)
   const setOpen = useCallback(v => {
