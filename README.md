@@ -11,11 +11,20 @@
 
 Need to make dropdowns, lightboxes/modals/dialogs, global message notifications, or tooltips in React? React Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component ([react docs](https://reactjs.org/docs/portals.html)).
 
+This hook is also isomorphic, meaning it works with SSR (server side rendering).
+
 <p align="center">
   <a href="https://github.com/alex-cory/react-useportal">
     <img src="https://github.com/alex-cory/react-useportal/raw/master/usePortal.gif" />
   </a>
 </p>
+
+Features
+--------
+- SSR (server side rendering) support
+- typescript support
+- zero dependencies
+- built in state
 
 ### Examples
 - <a target="_blank" rel="noopener noreferrer" href='https://codesandbox.io/s/w6jp7z4pkk'>Code Sandbox Example</a>
@@ -132,7 +141,8 @@ Todos
   })
   // window.open('', '', 'width=600,height=400,left=200,top=200')
 ```
-- [ ] make isomorphic
+- [X] make isomorphic
+- [ ] see if it's reliable to rely on react's internals for determining whether we're on the server or not. [Here](https://github.com/JedWatson/exenv) it says not to, but that was also 3 years ago.
 - [ ] make work without requiring the html synthetic event & document when you are required to have it and when you are not
 - [ ] clean up code
 - [ ] make work with both `[openPortal, closePortal, ..., Portal] = usePortal()` and like current object destructuring

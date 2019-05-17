@@ -1,8 +1,33 @@
 {
   "name": "react-useportal",
-  "version": "0.1.29",
+  "version": "0.1.40",
   "homepage": "https://codesandbox.io/s/w6jp7z4pkk",
   "main": "dist/usePortal.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alex-cory/react-useportal.git"
+  },
+  "description": "🌀 React hook for Portals",
+  "author": "Alex Cory <results@alexcory.com>",
+  "license": "MIT",
+  "private": false,
+  "peerDependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.12",
+    "@types/react": "^16.8.8",
+    "@types/react-dom": "^16.8.4",
+    "jest": "^24.7.1",
+    "parcel-bundler": "^1.12.3",
+    "typescript": "^3.4.5"
+  },
+  "scripts": {
+    "dev": "rm -rf dist && parcel examples/index.html --open",
+    "build": "rm -rf dist && ./node_modules/.bin/tsc --module CommonJS",
+    "publish": "yarn build && yarn publish"
+  },
   "keywords": [
     "react",
     "hook",
@@ -17,28 +42,7 @@
     "react-portal",
     "react-useportal",
     "react-use-portal",
-    "transportation"
+    "transportation",
+    "react portal hook"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alex-cory/react-useportal.git"
-  },
-  "description": "🌀 React hook for Portals",
-  "author": "Alex Cory <results@alexcory.com>",
-  "license": "MIT",
-  "private": false,
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "dependencies": {
-    "react": "^16.8.6"
-  },
-  "devDependencies": {
-    "parcel-bundler": "^1.12.3",
-    "react-dom": "^16.8.6"
-  },
-  "scripts": {
-    "dev": "parcel examples/index.html --open",
-    "build": "parcel build --target node ./src/*"
-  }
 }

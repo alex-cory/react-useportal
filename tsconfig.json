@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "moduleResolution": "node",
+    "target": "es6",
+    "strict": true,
+    "outDir": "dist",
+    "declaration": true,
+    "sourceMap": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "types": [
+      "jest"
+    ]
+  },
+  "include": [
+    "usePortal.ts",
+  ],
+  "exclude": ["node_modules"]
+}
