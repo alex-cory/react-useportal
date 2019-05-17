@@ -10,7 +10,7 @@
       <img alt="undefined" src="https://img.shields.io/lgtm/grade/javascript/g/alex-cory/react-useportal.svg?logo=lgtm&logoWidth=18"/>
     </a>
     <a href="https://www.npmjs.com/package/react-useportal">
-        <img src="https://img.shields.io/npm/dt/react-useportal.svg" />
+        <img src="https://img.shields.io/npm/dm/react-useportal.svg" />
     </a>
     <a href="https://bundlephobia.com/result?p=react-useportal">
       <img alt="undefined" src="https://img.shields.io/bundlephobia/minzip/react-useportal.svg">
