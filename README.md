@@ -4,6 +4,9 @@
     <a href="https://github.com/alex-cory/react-useportal/pulls">
       <img src="https://camo.githubusercontent.com/d4e0f63e9613ee474a7dfdc23c240b9795712c96/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5052732d77656c636f6d652d627269676874677265656e2e737667" />
     </a>
+    <a href="https://lgtm.com/projects/g/alex-cory/react-useportal/context:javascript">
+      <img alt="undefined" src="https://img.shields.io/lgtm/grade/javascript/g/alex-cory/react-useportal.svg?logo=lgtm&logoWidth=18"/>
+    </a>
     <a href="https://www.npmjs.com/package/react-useportal">
         <img src="https://img.shields.io/npm/dt/react-useportal.svg" />
     </a>
@@ -34,7 +37,7 @@ Installation
 ------------
 
 ```shell
-yarn add react react-dom react-useportal
+yarn add react-useportal      or     npm i -S react-useportal
 ```
 
 Usage
@@ -141,8 +144,12 @@ Todos
   })
   // window.open('', '', 'width=600,height=400,left=200,top=200')
 ```
+<<<<<<< HEAD
 - [X] make isomorphic
 - [ ] see if it's reliable to rely on react's internals for determining whether we're on the server or not. [Here](https://github.com/JedWatson/exenv) it says not to, but that was also 3 years ago.
 - [ ] make work without requiring the html synthetic event & document when you are required to have it and when you are not
+=======
+- [ ] make isomorphic
+- [ ] make documentation for when the html synthetic event is required
+>>>>>>> 090668bd4a707f6683ff2e2ad983ef48bae2e432
 - [ ] clean up code
-- [ ] make work with both `[openPortal, closePortal, ..., Portal] = usePortal()` and like current object destructuring
