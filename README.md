@@ -30,9 +30,9 @@ This hook is also isomorphic, meaning it works with SSR (server side rendering).
 Features
 --------
 - SSR (server side rendering) support
-- typescript support
+- TypeScript support
 - 1 dependency ([use-ssr](https://github.com/alex-cory/use-ssr))
-- built in state
+- Built in state
 
 ### Examples
 - [Modal Example - Next.js - codesandbox container](https://codesandbox.io/s/useportal-in-nextjs-codesandbox-container-9rm5o) (sometimes buggy, if so try [this example](https://codesandbox.io/s/useportal-in-nextjs-ux9nb))
