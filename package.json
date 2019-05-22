@@ -1,6 +1,6 @@
 {
   "name": "react-useportal",
-  "version": "0.1.43",
+  "version": "0.1.44",
   "homepage": "https://codesandbox.io/s/w6jp7z4pkk",
   "main": "dist/usePortal.js",
   "repository": {
@@ -27,7 +27,8 @@
   "scripts": {
     "dev": "rm -rf dist && parcel examples/index.html --open",
     "build": "rm -rf dist && ./node_modules/.bin/tsc --module CommonJS",
-    "publish": "yarn build && yarn publish"
+    "prepublish": "yarn build",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
     "dist"
