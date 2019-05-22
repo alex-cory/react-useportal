@@ -149,7 +149,8 @@ Todos
   })
   // window.open('', '', 'width=600,height=400,left=200,top=200')
 ```
-- [X] make isomorphic
+- [ ] tests (priority)
 - [ ] see if it's reliable to rely on react's internals for determining whether we're on the server or not. [Here](https://github.com/JedWatson/exenv) it says not to, but that was also 3 years ago.
 - [ ] make work without requiring the html synthetic event & document when you are required to have it and when you are not
 - [ ] clean up code
+- [X] make isomorphic
