@@ -35,9 +35,8 @@ Features
 - built in state
 
 ### Examples
-- <a target="_blank" rel="noopener noreferrer" href='https://codesandbox.io/s/useportal-in-nextjs-codesandbox-container-9rm5o'>Example - Next.js codesandbox container</a> (sometimes buggy, if so try example below)
-- <a target="_blank" rel="noopener noreferrer" href='https://codesandbox.io/s/useportal-in-nextjs-ux9nb'>Example - Next.js</a>
-- <a target="_blank" rel="noopener noreferrer" href='https://codesandbox.io/s/w6jp7z4pkk'>Example - create-react-app</a>
+- [Modal Example - Next.js codesandbox container](https://codesandbox.io/s/useportal-in-nextjs-codesandbox-container-9rm5o) (sometimes buggy, if so try [this example](https://codesandbox.io/s/useportal-in-nextjs-ux9nb))
+- [Modal Example - create-react-app](https://codesandbox.io/s/w6jp7z4pkk)
 
 
 Installation
@@ -156,3 +155,4 @@ Todos
 - [X] document when you are required to have synthetic event
 - [ ] clean up code
 - [X] make isomorphic
+- [ ] add example for tooltip (like [this one](https://codepen.io/davidgilbertson/pen/ooXVyw))
