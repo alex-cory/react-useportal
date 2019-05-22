@@ -35,7 +35,7 @@ Features
 - built in state
 
 ### Examples
-- [Modal Example - Next.js codesandbox container](https://codesandbox.io/s/useportal-in-nextjs-codesandbox-container-9rm5o) (sometimes buggy, if so try [this example](https://codesandbox.io/s/useportal-in-nextjs-ux9nb))
+- [Modal Example - Next.js - codesandbox container](https://codesandbox.io/s/useportal-in-nextjs-codesandbox-container-9rm5o) (sometimes buggy, if so try [this example](https://codesandbox.io/s/useportal-in-nextjs-ux9nb))
 - [Modal Example - create-react-app](https://codesandbox.io/s/w6jp7z4pkk)
 
 
