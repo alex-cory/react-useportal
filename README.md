@@ -157,3 +157,4 @@ Todos
 - [X] make isomorphic
 - [ ] add example for tooltip (like [this one](https://codepen.io/davidgilbertson/pen/ooXVyw))
 - [ ] add as many examples as possible 😊
+- [ ] continuous integration
