@@ -1,6 +1,6 @@
 {
   "name": "react-useportal",
-  "version": "0.1.40",
+  "version": "0.1.43",
   "homepage": "https://codesandbox.io/s/w6jp7z4pkk",
   "main": "dist/usePortal.js",
   "repository": {
@@ -21,13 +21,17 @@
     "@types/react-dom": "^16.8.4",
     "jest": "^24.7.1",
     "parcel-bundler": "^1.12.3",
-    "typescript": "^3.4.5"
+    "typescript": "^3.4.5",
+    "use-ssr": "^1.0.13"
   },
   "scripts": {
     "dev": "rm -rf dist && parcel examples/index.html --open",
     "build": "rm -rf dist && ./node_modules/.bin/tsc --module CommonJS",
     "publish": "yarn build && yarn publish"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "react",
     "hook",
