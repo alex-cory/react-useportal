@@ -172,3 +172,4 @@ Todos
 - [ ] continuous integration
 - [ ] greenkeeper
 - [ ] fix code so maintainability is A
+- [ ] optimize badges [see awesome badge list](https://github.com/boennemann/badges)
