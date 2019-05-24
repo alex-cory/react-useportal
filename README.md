@@ -18,6 +18,9 @@
     <a href="https://codeclimate.com/github/alex-cory/react-useportal/maintainability">
       <img src="https://api.codeclimate.com/v1/badges/609840b6dc914e035d15/maintainability" />
     </a>
+    <a href="https://github.com/alex-cory/react-useportal/blob/master/license.md">
+      <img alt="undefined" src="https://img.shields.io/github/license/alex-cory/react-useportal.svg">
+    </a>
     <a href="https://snyk.io/test/github/alex-cory/react-useportal?targetFile=package.json">
       <img src="https://snyk.io/test/github/alex-cory/react-useportal/badge.svg?targetFile=package.json" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/alex-cory/react-useportal?targetFile=package.json" style="max-width:100%;">
     </a>
