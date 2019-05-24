@@ -15,6 +15,15 @@
     <a href="https://bundlephobia.com/result?p=react-useportal">
       <img alt="undefined" src="https://img.shields.io/bundlephobia/minzip/react-useportal.svg">
     </a>
+    <a href="https://codeclimate.com/github/alex-cory/react-useportal/maintainability">
+      <img src="https://api.codeclimate.com/v1/badges/609840b6dc914e035d15/maintainability" />
+    </a>
+    <a href="https://snyk.io/test/github/alex-cory/react-useportal?targetFile=package.json">
+      <img src="https://snyk.io/test/github/alex-cory/react-useportal/badge.svg?targetFile=package.json" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/alex-cory/react-useportal?targetFile=package.json" style="max-width:100%;">
+    </a>
+    <a href="https://www.npmjs.com/package/react-useportal">
+      <img src="https://img.shields.io/npm/v/react-useportal.svg?style=flat-square" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/alex-cory/react-useportal?targetFile=package.json" style="max-width:100%;">
+    </a>
 </p>
 
 Need to make dropdowns, lightboxes/modals/dialogs, global message notifications, or tooltips in React? React Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component ([react docs](https://reactjs.org/docs/portals.html)).
