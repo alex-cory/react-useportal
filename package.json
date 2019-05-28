@@ -11,6 +11,13 @@
   "author": "Alex Cory <results@alexcory.com>",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "dev": "rm -rf dist && parcel examples/index.html --open",
+    "build": "rm -rf dist && ./node_modules/.bin/tsc --module CommonJS",
+    "prepublishOnly": "yarn build",
+    "test": "tsc -p . --noEmit && tsc -p . && jest",
+    "test:watch": "tsc -p . --noEmit && tsc -p . && jest --watch"
+  },
   "peerDependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
@@ -24,13 +31,44 @@
     "@types/react-dom": "^16.8.4",
     "jest": "^24.7.1",
     "parcel-bundler": "^1.12.3",
+    "react": "^16.8.6",
+    "react-hooks-testing-library": "^0.5.0",
+    "react-test-renderer": "^16.8.6",
+    "react-testing-library": "^7.0.1",
+    "react-dom": "^16.8.6",
+    "ts-jest": "^24.0.0",
     "typescript": "^3.4.5"
   },
-  "scripts": {
-    "dev": "rm -rf dist && parcel examples/index.html --open",
-    "build": "rm -rf dist && ./node_modules/.bin/tsc --module CommonJS",
-    "prepublish": "yarn build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    },
+    "collectCoverageFrom": [
+      "src/*.{js,ts}"
+    ]
   },
   "files": [
     "dist"
