@@ -43,6 +43,9 @@ This hook is also isomorphic, meaning it works with SSR (server side rendering).
 
 Features
 --------
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/alex-cory/react-useportal.svg)](https://greenkeeper.io/)
+
 - SSR (server side rendering) support
 - TypeScript support
 - 1 dependency ([use-ssr](https://github.com/alex-cory/use-ssr))
