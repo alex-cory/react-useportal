@@ -169,12 +169,11 @@ Todos
 ```
 - [ ] tests (priority)
 - [ ] make work without requiring the html synthetic event
-- [X] document when you are required to have synthetic event
-- [ ] clean up code
-- [X] make isomorphic
 - [ ] add example for tooltip (like [this one](https://codepen.io/davidgilbertson/pen/ooXVyw))
 - [ ] add as many examples as possible 😊
-- [ ] continuous integration
-- [ ] greenkeeper
 - [ ] fix code so maintainability is A
 - [ ] optimize badges [see awesome badge list](https://github.com/boennemann/badges)
+- [X] document when you are required to have synthetic event
+- [X] make isomorphic
+- [X] continuous integration
+- [X] greenkeeper
