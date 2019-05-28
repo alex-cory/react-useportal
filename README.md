@@ -15,6 +15,9 @@
     <a href="https://bundlephobia.com/result?p=react-useportal">
       <img alt="undefined" src="https://img.shields.io/bundlephobia/minzip/react-useportal.svg">
     </a>
+    <a href="https://circleci.com/gh/alex-cory/react-useportal">
+      <img src="https://img.shields.io/circleci/project/github/alex-cory/react-useportal/master.svg" />
+    </a>
 </p>
 
 Need to make dropdowns, lightboxes/modals/dialogs, global message notifications, or tooltips in React? React Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component ([react docs](https://reactjs.org/docs/portals.html)).

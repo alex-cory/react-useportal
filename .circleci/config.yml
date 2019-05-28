@@ -1,0 +1,28 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/node:8.10
+    environment:
+      - NODE_ENV: test
+    working_directory: ~/react-useportal
+    steps:
+      - checkout
+      - restore_cache:
+          key: react-useportal-yarn-{{ checksum "yarn.lock" }}
+      - run:
+          name: Yarn Install
+          command: |
+            yarn install
+      - save_cache:
+          key: react-useportal-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/react-useportal/node_modules
+      - run:
+          name: Run JS Tests
+          command: yarn test
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test
