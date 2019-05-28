@@ -17,6 +17,17 @@
     </a>
     <a href="https://circleci.com/gh/alex-cory/react-useportal">
       <img src="https://img.shields.io/circleci/project/github/alex-cory/react-useportal/master.svg" />
+    <a href="https://codeclimate.com/github/alex-cory/react-useportal/maintainability">
+      <img src="https://api.codeclimate.com/v1/badges/609840b6dc914e035d15/maintainability" />
+    </a>
+    <a href="https://github.com/alex-cory/react-useportal/blob/master/license.md">
+      <img alt="undefined" src="https://img.shields.io/github/license/alex-cory/react-useportal.svg">
+    </a>
+    <a href="https://snyk.io/test/github/alex-cory/react-useportal?targetFile=package.json">
+      <img src="https://snyk.io/test/github/alex-cory/react-useportal/badge.svg?targetFile=package.json" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/alex-cory/react-useportal?targetFile=package.json" style="max-width:100%;">
+    </a>
+    <a href="https://www.npmjs.com/package/react-useportal">
+      <img src="https://img.shields.io/npm/v/react-useportal.svg" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/alex-cory/react-useportal?targetFile=package.json" style="max-width:100%;">
     </a>
 </p>
 
@@ -33,12 +44,13 @@ This hook is also isomorphic, meaning it works with SSR (server side rendering).
 Features
 --------
 - SSR (server side rendering) support
-- typescript support
-- zero dependencies
-- built in state
+- TypeScript support
+- 1 dependency ([use-ssr](https://github.com/alex-cory/use-ssr))
+- Built in state
 
 ### Examples
-- <a target="_blank" rel="noopener noreferrer" href='https://codesandbox.io/s/w6jp7z4pkk'>Code Sandbox Example</a>
+- [Modal Example - Next.js - codesandbox container](https://codesandbox.io/s/useportal-in-nextjs-codesandbox-container-9rm5o) (sometimes buggy, if so try [this example](https://codesandbox.io/s/useportal-in-nextjs-ux9nb))
+- [Modal Example - create-react-app](https://codesandbox.io/s/w6jp7z4pkk)
 
 
 Installation
@@ -153,7 +165,13 @@ Todos
   // window.open('', '', 'width=600,height=400,left=200,top=200')
 ```
 - [ ] tests (priority)
-- [ ] see if it's reliable to rely on react's internals for determining whether we're on the server or not. [Here](https://github.com/JedWatson/exenv) it says not to, but that was also 3 years ago.
-- [ ] make work without requiring the html synthetic event & document when you are required to have it and when you are not
+- [ ] make work without requiring the html synthetic event
+- [X] document when you are required to have synthetic event
 - [ ] clean up code
 - [X] make isomorphic
+- [ ] add example for tooltip (like [this one](https://codepen.io/davidgilbertson/pen/ooXVyw))
+- [ ] add as many examples as possible 😊
+- [ ] continuous integration
+- [ ] greenkeeper
+- [ ] fix code so maintainability is A
+- [ ] optimize badges [see awesome badge list](https://github.com/boennemann/badges)
