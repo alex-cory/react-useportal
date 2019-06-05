@@ -102,10 +102,10 @@ export default function usePortal({
 
   }, [isServer, handleOutsideMouseClick, handleKeydown, elToMountTo])
 
-  const Portal = ({ children }: { children: ReactNode }) => {
+  const Portal = useCallback(({ children }: { children: ReactNode }) => {
     if (portal.current instanceof HTMLElement) return createPortal(children, portal.current)
     return null
-  }
+  }, [])
 
   return Object.assign([
       openPortal,
