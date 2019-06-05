@@ -15,6 +15,9 @@
     <a href="https://bundlephobia.com/result?p=react-useportal">
       <img alt="undefined" src="https://img.shields.io/bundlephobia/minzip/react-useportal.svg">
     </a>
+    <a href="https://greenkeeper.io/">
+      <img src="https://badges.greenkeeper.io/alex-cory/react-useportal.svg">
+    </a>
     <a href="https://circleci.com/gh/alex-cory/react-useportal">
       <img src="https://img.shields.io/circleci/project/github/alex-cory/react-useportal/master.svg" />
     <a href="https://codeclimate.com/github/alex-cory/react-useportal/maintainability">
@@ -166,12 +169,11 @@ Todos
 ```
 - [ ] tests (priority)
 - [ ] make work without requiring the html synthetic event
-- [X] document when you are required to have synthetic event
-- [ ] clean up code
-- [X] make isomorphic
 - [ ] add example for tooltip (like [this one](https://codepen.io/davidgilbertson/pen/ooXVyw))
 - [ ] add as many examples as possible 😊
-- [ ] continuous integration
-- [ ] greenkeeper
 - [ ] fix code so maintainability is A
 - [ ] optimize badges [see awesome badge list](https://github.com/boennemann/badges)
+- [X] document when you are required to have synthetic event
+- [X] make isomorphic
+- [X] continuous integration
+- [X] greenkeeper
