@@ -172,7 +172,9 @@ Todos
 - [ ] add example for tooltip (like [this one](https://codepen.io/davidgilbertson/pen/ooXVyw))
 - [ ] add as many examples as possible 😊
 - [ ] fix code so maintainability is A
+- [ ] set up code climate test coverage
 - [ ] optimize badges [see awesome badge list](https://github.com/boennemann/badges)
+  - [ ] add code climate test coverage badge
 - [X] document when you are required to have synthetic event
 - [X] make isomorphic
 - [X] continuous integration
