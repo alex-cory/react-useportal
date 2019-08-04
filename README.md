@@ -168,6 +168,7 @@ Todos
   // window.open('', '', 'width=600,height=400,left=200,top=200')
 ```
 - [ ] tests (priority)
+- [ ] maybe have a `<Provider order={['Portal', 'openPortal']} />` then you can change the order of the array destructuring syntax
 - [ ] make work without requiring the html synthetic event
 - [ ] add example for tooltip (like [this one](https://codepen.io/davidgilbertson/pen/ooXVyw))
 - [ ] add as many examples as possible 😊
