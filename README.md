@@ -169,6 +169,7 @@ Todos
 ```
 - [ ] tests (priority)
 - [ ] maybe have a `<Provider order={['Portal', 'openPortal']} />` then you can change the order of the array destructuring syntax
+- [ ] instead of having a `stateful` option, just make `usePortal` stateful, and allow `import { Portal } from 'react-useportal'`
 - [ ] make work without requiring the html synthetic event
 - [ ] add example for tooltip (like [this one](https://codepen.io/davidgilbertson/pen/ooXVyw))
 - [ ] add as many examples as possible 😊
