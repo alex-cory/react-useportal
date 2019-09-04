@@ -70,13 +70,25 @@ Usage
 ```jsx 
 import usePortal from 'react-useportal'
 
-<Portal>
-  This text is portaled at the end of document.body!
-</Portal>
+const App = () => {
+  const { Portal } = usePortal()
 
-<Portal bindTo={document && document.getElementById('san-francisco')}>
-  This text is portaled into San Francisco!
-</Portal>
+  return (
+    <Portal>
+      This text is portaled at the end of document.body!
+    </Portal>
+  )
+}
+
+const App = () => {
+  const { Portal } = usePortal()
+
+  return (
+    <Portal bindTo={document && document.getElementById('san-francisco')}>
+      This text is portaled into San Francisco!
+    </Portal>
+  )
+}
 ```
 
 ### With State
