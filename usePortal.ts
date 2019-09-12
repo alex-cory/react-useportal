@@ -139,14 +139,6 @@ export default function usePortal({
   }, [portal.current])
 
   // this should handle all eventHandlers like onClick, onMouseOver, etc. passed into the config
-  // const customEventHandlers: EventHandlers = Object
-  //   .entries(eventHandlers)
-  //   .reduce((acc, [handlerName, eventHandler]: [keyof EventHandlers, CustomEventHandler]) => {
-  //     acc[handlerName] = (event?: SyntheticEvent<any, Event>) => handleEvent(eventHandler, event)
-  //     return acc
-  //   },
-  //   {} as EventHandlers
-  // )
   const customEventHandlers: EventHandlers = Object
     .entries(eventHandlers)
     .reduce<any>((acc, [handlerName, eventHandler]) => {
