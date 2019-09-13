@@ -64,25 +64,23 @@ const Example2 = () => {
 
 // this should attach via `bind` so whatever you "bind" it to, you can click
 // and it will apear near where you click. Need to figure out how to handle
-// this though
-const Example3 = () => {
-  const { togglePortal, closePortal, isOpen, Portal, bind } = usePortal({
-    // renderBelowClickedElement: true,
-    style(portal, clickedElement) {
-      const { x, y, height, width } = clickedElement
-      // portal.style.top = `${height + 8}px`
-      // portal.style.left = `${x}px`
-      portal.style = `
-        position: absolute;
-        left: ${x}px;
-        top: ${y + height + 8}px;
-        background: blue;
-        width: ${width}px;
-      `
-      return portal
-    },
-  })
-}
+// this though. THIS IS NOT IMPLEMENTED, JUST POTENTIAL SYNTAX
+// const Example3 = () => {
+//   const { togglePortal, closePortal, isOpen, Portal, bind } = usePortal({
+//     style(portal, clickedElement) {
+//       const { x, y, height, width } = clickedElement.getBoundingClientRect()
+//       portal.style.cssText = `
+//         position: absolute;
+//         left: ${x}px;
+//         top: ${y + height + 8}px;
+//         background: blue;
+//         width: ${width}px;
+//       `
+//       return portal
+//     },
+//   })
+//   return <div {...bind}>Example 3</div>
+// }
 
 function App() {
   return (
