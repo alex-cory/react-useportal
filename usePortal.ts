@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, useMemo, ReactNode, DOMAttributes, EventHandler, SyntheticEvent , MutableRefObject} from 'react'
+import { useState, useRef, useEffect, useCallback, useMemo, ReactNode, DOMAttributes, EventHandler, SyntheticEvent, MutableRefObject } from 'react'
 import { createPortal, findDOMNode } from 'react-dom'
 import useSSR from 'use-ssr'
 
