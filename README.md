@@ -10,7 +10,7 @@
       <img alt="undefined" src="https://img.shields.io/lgtm/grade/javascript/g/alex-cory/react-useportal.svg?logo=lgtm&logoWidth=18"/>
     </a>
     <a href="https://www.npmjs.com/package/react-useportal">
-        <img src="https://img.shields.io/npm/dm/react-useportal.svg" />
+        <img src="https://img.shields.io/npm/dt/react-useportal.svg" />
     </a>
     <a href="https://bundlephobia.com/result?p=react-useportal">
       <img alt="undefined" src="https://img.shields.io/bundlephobia/minzip/react-useportal.svg">
@@ -70,13 +70,25 @@ Usage
 ```jsx 
 import usePortal from 'react-useportal'
 
-<Portal>
-  This text is portaled at the end of document.body!
-</Portal>
+const App = () => {
+  const { Portal } = usePortal()
 
-<Portal bindTo={document && document.getElementById('san-francisco')}>
-  This text is portaled into San Francisco!
-</Portal>
+  return (
+    <Portal>
+      This text is portaled at the end of document.body!
+    </Portal>
+  )
+}
+
+const App = () => {
+  const { Portal } = usePortal()
+
+  return (
+    <Portal bindTo={document && document.getElementById('san-francisco')}>
+      This text is portaled into San Francisco!
+    </Portal>
+  )
+}
 ```
 
 ### With State
@@ -168,6 +180,8 @@ Todos
   // window.open('', '', 'width=600,height=400,left=200,top=200')
 ```
 - [ ] tests (priority)
+- [ ] maybe have a `<Provider order={['Portal', 'openPortal']} />` then you can change the order of the array destructuring syntax
+- [ ] instead of having a `stateful` option, just make `usePortal` stateful, and allow `import { Portal } from 'react-useportal'`
 - [ ] make work without requiring the html synthetic event
 - [ ] add example for tooltip (like [this one](https://codepen.io/davidgilbertson/pen/ooXVyw))
 - [ ] add as many examples as possible 😊
