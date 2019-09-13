@@ -21,11 +21,14 @@ type UsePortalOptions = {
   onClose?: CustomEventHandler
 } & EventHandlers
 
+type UsePortalObjectReturn = {} // TODO
+type UsePortalArrayReturn = [] // TODO
+
 export default function usePortal({
   closeOnOutsideClick = true,
   closeOnEsc = true,
   renderOnClickedElement,
-  renderBelowClickedElement, // appear directly under the clicked element/node in the DOM
+  renderBelowClickedElement,
   bindTo, // attach the portal to this node in the DOM
   isOpen: defaultIsOpen = false,
   onOpen,
@@ -44,7 +47,7 @@ export default function usePortal({
   }, [isOpen, open.current])
 
   const targetEl = useRef() as HTMLElRef // this is the element you are clicking/hovering/whatever, to trigger opening the portal
-  const portal = useRef(isBrowser ? document.createElement('div') as HTMLElement : null) as HTMLElRef
+  const portal = useRef(isBrowser ? document.createElement('div') : null) as HTMLElRef
 
   useEffect(() => {
     if (isBrowser && !portal.current) portal.current = document.createElement('div')
@@ -73,9 +76,8 @@ export default function usePortal({
     if (event) targetEl.current = event.currentTarget
     if (!targetEl.current) throw Error('You must either bind to an element or pass an event to openPortal(e).')
     const { left, top } = targetEl.current.getBoundingClientRect()
-    if (onOpen) {
-      handleEvent(onOpen, event)
-    } else if (renderOnClickedElement && portal.current instanceof HTMLElement) {
+    if (onOpen) handleEvent(onOpen, event)
+    if (renderOnClickedElement && portal.current instanceof HTMLElement) {
       portal.current.style.cssText = `
         height: 0px;
         position: absolute;
@@ -134,7 +136,7 @@ export default function usePortal({
   }, [isServer, handleOutsideMouseClick, handleKeydown, elToMountTo])
 
   const Portal = useCallback(({ children }: { children: ReactNode }) => {
-    if (portal.current != null) return createPortal(children, portal.current as HTMLElement)
+    if (portal.current != null) return createPortal(children, portal.current)
     return null
   }, [portal.current])
 
