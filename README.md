@@ -54,6 +54,7 @@ Features
 ### Examples
 - [Modal Example - Next.js - codesandbox container](https://codesandbox.io/s/useportal-in-nextjs-codesandbox-container-9rm5o) (sometimes buggy, if so try [this example](https://codesandbox.io/s/useportal-in-nextjs-ux9nb))
 - [Modal Example - create-react-app](https://codesandbox.io/s/w6jp7z4pkk)
+- [Dropdown Example (useDropdown) - Next.js](https://codesandbox.io/s/useportal-usedropdown-587fo)
 
 
 Installation
@@ -142,6 +143,26 @@ const App = () => {
   )
 }
 ```
+
+### Customizing the Portal directly
+By using `onOpen`, `onClose` or any other event handler, you can modify the `portal` and return it. See [useDropdown](https://codesandbox.io/s/useportal-usedropdown-587fo) for a working example. It's important that you pass the `event` object to `openPortal`.
+
+```jsx
+const App = () => {
+  const { openPortal, isOpen } = usePortal({
+    onOpen({ portal }) {
+      portal.current.style.cssText = `
+        position: absolute;
+        /* add your custom styles here! */
+      `
+      return portal
+    }
+  })
+  
+  return <button onClick={e => openPortal(e)}>Click Me<button>
+}
+```
+
 **Make sure you are passing the html synthetic event to the `openPortal`. i.e. `onClick={e => openPortal(e)}`**
 
 Options
@@ -153,6 +174,9 @@ Options
 | `renderBelowClickedElement` | This will put the portal right under the element that you click on. Great for dropdowns. Required to pass event to openPortal `onClick={event => openPortal(event)}` |
 | `bindTo` | This is the DOM node you want to attach the portal to. By default it attaches to `document.body` |
 | `isOpen` | This will be the default for the portal. Default is `false` |
+| `onOpen` | This is used to call something when the portal is opened and to modify the css of the portal directly |
+| `onClose` | This is used to call something when the portal is closed and to modify the css of the portal directly |
+| html event handlers (i.e. `onClick`) | These can be used instead of `onOpen` to modify the css of the portal directly |
 
 ### Option Usage
 ```js
@@ -168,6 +192,10 @@ const {
   renderBelowClickedElement, // appear directly under the clicked element/node in the DOM
   bindTo, // attach the portal to this node in the DOM
   isOpen: false,
+  onOpen: ({ event, portal, targetEl }) => {},
+  onClose({ event, portal, targetEl }) {},
+  // in addition, any event handler such as onClick, onMouseOver, etc will be handled like
+  onClick({ event, portal, targetEl }) {}
 })
 ```
 Todos
