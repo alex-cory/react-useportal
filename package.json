@@ -13,10 +13,19 @@
   "private": false,
   "scripts": {
     "dev": "rm -rf dist && parcel examples/index.html --open",
+    "prepublishOnly": "yarn build # runs before publish",
     "build": "rm -rf dist && ./node_modules/.bin/tsc --module CommonJS",
-    "prepublishOnly": "yarn build",
-    "test": "tsc -p . --noEmit && tsc -p . && jest",
-    "test:watch": "tsc -p . --noEmit && tsc -p . && jest --watch"
+    "build:watch": "rm -rf dist && ./node_modules/.bin/tsc -w --module CommonJS",
+    "test:browser": "yarn tsc && jest --env=jsdom",
+    "test:browser:watch": "yarn tsc && jest --watch --env=jsdom",
+    "test:server": "yarn tsc && jest --env=node",
+    "test:server:watch": "yarn tsc && jest --watch --env=node",
+    "test:watch": "yarn test:browser:watch && yarn test:server:watch",
+    "test": "yarn test:browser && yarn test:server",
+    "clean": "npm prune; yarn cache clean; rm -rf ./node_modules package-lock.json yarn.lock; yarn",
+    "lint": "eslint ./**/*.{ts,tsx}",
+    "lint:fix": "npm run lint -- --fix",
+    "lint:watch": "watch 'yarn lint'"
   },
   "peerDependencies": {
     "react": "^16.8.6",
@@ -27,10 +36,17 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
-    "@types/react": "^16.8.8",
+    "@types/react": "^16.9.2",
     "@types/react-dom": "^16.8.4",
+    "@typescript-eslint/eslint-plugin": "^2.2.0",
+    "@typescript-eslint/parser": "^2.2.0",
+    "eslint": "^6.3.0",
+    "eslint-plugin-jest": "^22.17.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
     "jest": "^24.7.1",
     "parcel-bundler": "^1.12.3",
+    "prettier": "^1.18.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-hooks-testing-library": "^0.6.0",
@@ -38,37 +54,6 @@
     "react-testing-library": "^8.0.0",
     "ts-jest": "^24.0.0",
     "typescript": "^3.4.5"
-  },
-  "jest": {
-    "transform": {
-      ".(ts|tsx)": "ts-jest"
-    },
-    "testEnvironment": "node",
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/dist/"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/dist/"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 90,
-        "functions": 95,
-        "lines": 95,
-        "statements": 95
-      }
-    },
-    "collectCoverageFrom": [
-      "src/*.{js,ts}"
-    ]
   },
   "files": [
     "dist"

@@ -1,0 +1,40 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+
+module.exports = {
+  rootDir: process.cwd(),
+  coverageDirectory: '<rootDir>/.coverage',
+  globals: {
+    __DEV__: true,
+  },
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/**/*.test.*',
+    '!src/test/**/*.*',
+  ],
+  // setupFilesAfterEnv: [path.join(__dirname, './setupTests.ts')],
+  testMatch: [
+    '<rootDir>/**/?(*.)(spec|test).ts?(x)',
+  ],
+  testEnvironment: 'node',
+  testURL: 'http://localhost',
+  transform: {
+    '^.+\\.(ts|tsx)$': 'ts-jest',
+  },
+  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'],
+  // testPathIgnorePatterns: ['<rootDir>/src/__tests__/test-utils.tsx'],
+  moduleNameMapper: {
+    '^react-native$': 'react-native-web',
+  },
+  moduleFileExtensions: [
+    'web.js',
+    'js',
+    'json',
+    'web.jsx',
+    'jsx',
+    'ts',
+    'tsx',
+    'feature',
+    'csv',
+  ],
+}
