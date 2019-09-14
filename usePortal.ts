@@ -67,8 +67,7 @@ export default function usePortal({
   const handleEvent = useCallback((func: CustomEventHandler, event?: SyntheticEvent<any, Event>) => {
     if (event && event.currentTarget) targetEl.current = event.currentTarget as HTMLElement
     // i.e. onClick, etc. inside usePortal({ onClick({ portal, targetEl }) {} })
-    const maybePortal = func({ portal, targetEl: targetEl.current as HTMLElement, event })
-    if (maybePortal) portal.current = maybePortal.current
+    func({ portal, targetEl: targetEl.current as HTMLElement, event })
   }, [portal, targetEl]) 
 
   const openPortal = useCallback((event: SyntheticEvent<any, Event>) => {
