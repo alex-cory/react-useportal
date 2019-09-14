@@ -16,8 +16,6 @@ type EventHandlers = {
 type UsePortalOptions = {
   closeOnOutsideClick?: boolean
   closeOnEsc?: boolean
-  renderOnClickedElement?: boolean
-  renderBelowClickedElement?: boolean // appear directly under the clicked element/node in the DOM
   bindTo?: HTMLElement // attach the portal to this node in the DOM
   isOpen?: boolean
   stateful?: boolean
@@ -33,8 +31,6 @@ const errorMessage1 = 'You must either bind to an element or pass an event to op
 export default function usePortal({
   closeOnOutsideClick = true,
   closeOnEsc = true,
-  renderOnClickedElement,
-  renderBelowClickedElement,
   bindTo, // attach the portal to this node in the DOM
   isOpen: defaultIsOpen = false,
   onOpen,
@@ -84,22 +80,8 @@ export default function usePortal({
     if (!targetEl.current) throw Error(errorMessage1)
     const { left, top } = targetEl.current.getBoundingClientRect()
     if (onOpen) handleEvent(onOpen, event)
-    if (renderOnClickedElement && portal.current instanceof HTMLElement) {
-      portal.current.style.cssText = `
-        height: 0px;
-        position: absolute;
-        left: ${left}px;
-        top: ${top}px;
-      `
-    } else if (renderBelowClickedElement && portal.current instanceof HTMLElement) {
-      portal.current.style.cssText = `
-        position: absolute;
-        left: ${left};
-        top: ${top};
-      `
-    }
     setOpen(true)
-  }, [isServer, portal, setOpen, renderBelowClickedElement, renderOnClickedElement, handleEvent, targetEl, onOpen])
+  }, [isServer, portal, setOpen, handleEvent, targetEl, onOpen])
 
   const closePortal = useCallback((event?: SyntheticEvent<any, Event>) => {
     if (isServer) return
