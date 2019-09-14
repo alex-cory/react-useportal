@@ -146,21 +146,41 @@ const App = () => {
 ```
 
 ### Customizing the Portal directly
-By using `onOpen`, `onClose` or any other event handler, you can modify the `portal` and return it. See [useDropdown](https://codesandbox.io/s/useportal-usedropdown-587fo) for a working example. It's important that you pass the `event` object to `openPortal`.
+By using `onOpen`, `onClose` or any other event handler, you can modify the `Portal` and return it. See [useDropdown](https://codesandbox.io/s/useportal-usedropdown-587fo) for a working example. It's important that you pass the `event` object to `openPortal` otherwise you will need to attach a ref to the clicked element.
 
 ```jsx
-const App = () => {
-  const { openPortal, isOpen } = usePortal({
+const useModal = () => {
+  const { isOpen, togglePortal, closePortal, Portal } = usePortal({
     onOpen({ portal }) {
       portal.current.style.cssText = `
+        /* add your css here for the Portal */
         position: absolute;
-        /* add your custom styles here! */
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
       `
-      return portal
     }
   })
+
+  return {
+    Modal: Portal,
+    toggleModal: togglePortal,
+    closeModal: closePortal,
+    isOpen
+  }
+}
+
+const App = () => {
+  const { openModal, closeModal, isOpen, Modal } = useModal()
   
-  return <button onClick={e => openPortal(e)}>Click Me<button>
+  return <>
+    <button onClick={e => openModal(e)}>Open Modal<button>
+    {isOpen && (
+      <Modal>
+        This will dynamically center to the middle of the screen regardless of the size of what you put in here
+      </Modal>
+    )}
+  </>
 }
 ```
 
@@ -185,7 +205,8 @@ const {
   closePortal,
   togglePortal,
   isOpen,
-  Portal
+  Portal,
+  ref, // if you don't pass an event to openPortal, closePortal, or togglePortal, you will need to put this on the element you want to interact with/click
 } = usePortal({
   closeOnOutsideClick: true,
   closeOnEsc: true,
@@ -208,7 +229,6 @@ Todos
 ```
 - [ ] tests (priority)
 - [ ] maybe have a `<Provider order={['Portal', 'openPortal']} />` then you can change the order of the array destructuring syntax
-- [ ] instead of having a `stateful` option, just make `usePortal` stateful, and allow `import { Portal } from 'react-useportal'`
 - [ ] make work without requiring the html synthetic event
 - [ ] add example for tooltip (like [this one](https://codepen.io/davidgilbertson/pen/ooXVyw))
 - [ ] add as many examples as possible 😊
