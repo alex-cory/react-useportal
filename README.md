@@ -55,6 +55,7 @@ Features
 - [Modal Example - Next.js - codesandbox container](https://codesandbox.io/s/useportal-in-nextjs-codesandbox-container-9rm5o) (sometimes buggy, if so try [this example](https://codesandbox.io/s/useportal-in-nextjs-ux9nb))
 - [Modal Example (useModal) - create-react-app](https://codesandbox.io/s/w6jp7z4pkk)
 - [Dropdown Example (useDropdown) - Next.js](https://codesandbox.io/s/useportal-usedropdown-587fo)
+- [Tooltip Example (useTooltip) - Next.js](https://codesandbox.io/s/useportal-usedropdown-dgesf)
 
 
 Installation
@@ -176,7 +177,7 @@ Options
 | `isOpen` | This will be the default for the portal. Default is `false` |
 | `onOpen` | This is used to call something when the portal is opened and to modify the css of the portal directly |
 | `onClose` | This is used to call something when the portal is closed and to modify the css of the portal directly |
-| html event handlers (i.e. `onClick`) | These can be used instead of `onOpen` to modify the css of the portal directly |
+| html event handlers (i.e. `onClick`) | These can be used instead of `onOpen` to modify the css of the portal directly. [`onMouseEnter` and `onMouseLeave` example](https://codesandbox.io/s/useportal-usedropdown-dgesf) |
 
 ### Option Usage
 ```js
