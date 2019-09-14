@@ -159,14 +159,12 @@ export default function usePortal({
     {
       isOpen: open.current,
       openPortal,
-      onMouseDown: handleKeydown,
       ref: targetEl,
       closePortal,
       togglePortal,
       Portal,
       ...customEventHandlers,
       bind: {
-        onMouseDown: handleKeydown,
         ref: targetEl,
         ...customEventHandlers
       }
