@@ -206,7 +206,8 @@ const {
   closePortal,
   togglePortal,
   isOpen,
-  Portal
+  Portal,
+  ref, // if you don't pass an event to openPortal, closePortal, or togglePortal, you will need to put this on the element you want to interact with/click
 } = usePortal({
   closeOnOutsideClick: true,
   closeOnEsc: true,
@@ -230,7 +231,6 @@ Todos
 ```
 - [ ] tests (priority)
 - [ ] maybe have a `<Provider order={['Portal', 'openPortal']} />` then you can change the order of the array destructuring syntax
-- [ ] instead of having a `stateful` option, just make `usePortal` stateful, and allow `import { Portal } from 'react-useportal'`
 - [ ] make work without requiring the html synthetic event
 - [ ] add example for tooltip (like [this one](https://codepen.io/davidgilbertson/pen/ooXVyw))
 - [ ] add as many examples as possible 😊
