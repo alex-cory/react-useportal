@@ -113,11 +113,11 @@ export default function usePortal({
     const node = portal.current
     elToMountTo.appendChild(portal.current)
     document && document.addEventListener('keydown', handleKeydown)
-    document && document.addEventListener('click', handleOutsideMouseClick)
+    document && document.addEventListener('mousedown', handleOutsideMouseClick)
 
     return () => {
       document && document.removeEventListener('keydown', handleKeydown)
-      document && document.removeEventListener('click', handleOutsideMouseClick)
+      document && document.removeEventListener('mousedown', handleOutsideMouseClick)
       elToMountTo.removeChild(node)
     }
   }, [isServer, handleOutsideMouseClick, handleKeydown, elToMountTo, portal])
