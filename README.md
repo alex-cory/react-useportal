@@ -83,7 +83,9 @@ const App = () => {
 }
 
 const App = () => {
-  const { Portal } = usePortal()
+  const { Portal } = usePortal({
+    bindTo: document && document.getElementById('san-francisco')
+  })
 
   return (
     <Portal>
