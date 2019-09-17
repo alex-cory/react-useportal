@@ -229,7 +229,23 @@ Todos
   })
   // window.open('', '', 'width=600,height=400,left=200,top=200')
 ```
-- [ ] tests (priority)
+- [ ] tests (priority)'
+- [ ] potential syntax in the future like. Not sure how I would do this... maybe create a component
+  ```jsx
+  const App = () => {
+    const { Portal } = usePortal()
+    
+    const handleOpen = ({ portal, targetEl, event }) => {
+      // give portal custom styles, or do whatever needs to be done onOpen
+    }
+
+    return (
+      <Portal onOpen={handleOpen}>
+        I'm a portal!
+      </Portal>
+    )
+  }
+  ```
 - [ ] maybe have a `<Provider order={['Portal', 'openPortal']} />` then you can change the order of the array destructuring syntax
 - [ ] make work without requiring the html synthetic event
 - [ ] add example for tooltip (like [this one](https://codepen.io/davidgilbertson/pen/ooXVyw))
