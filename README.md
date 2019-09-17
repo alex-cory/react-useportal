@@ -86,7 +86,7 @@ const App = () => {
   const { Portal } = usePortal()
 
   return (
-    <Portal bindTo={document && document.getElementById('san-francisco')}>
+    <Portal>
       This text is portaled into San Francisco!
     </Portal>
   )
