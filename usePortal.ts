@@ -78,7 +78,6 @@ export default function usePortal({
     if (event && event.nativeEvent) event.nativeEvent.stopImmediatePropagation()
     if (event) targetEl.current = event.currentTarget
     if (!targetEl.current) throw Error(errorMessage1)
-    const { left, top } = targetEl.current.getBoundingClientRect()
     if (onOpen) handleEvent(onOpen, event)
     setOpen(true)
   }, [isServer, portal, setOpen, handleEvent, targetEl, onOpen])
@@ -89,9 +88,9 @@ export default function usePortal({
     if (open.current) setOpen(false)
   }, [isServer, handleEvent, onClose, setOpen])
 
-  const togglePortal = useCallback((e: SyntheticEvent<any, Event>) =>
-    isOpen ? closePortal(e) : openPortal(e),
-    [isOpen, closePortal, openPortal]
+  const togglePortal = useCallback((e: SyntheticEvent<any, Event>) => 
+    open.current ? closePortal(e) : openPortal(e),
+    [closePortal, openPortal]
   )
 
   const handleKeydown = useCallback(e => {
@@ -102,7 +101,7 @@ export default function usePortal({
   const handleOutsideMouseClick = useCallback(e  => {
     if (isServer) return
     if (!(portal.current instanceof HTMLElement)) return
-    if (portal.current.contains(e.target) || e.button !== 0 || !open.current) return
+    if (portal.current.contains(e.target) || e.button !== 0 || !open.current || targetEl.current.contains(e.target)) return
     if (closeOnOutsideClick) closePortal(e)
   }, [isServer, closePortal, closeOnOutsideClick, portal])
 
