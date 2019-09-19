@@ -222,6 +222,7 @@ const {
 ```
 Todos
 ------
+- [ ] add correct return types
 - [ ] add support for popup windows [resource 1](https://javascript.info/popup-windows) [resource 2](https://hackernoon.com/using-a-react-16-portal-to-do-something-cool-2a2d627b0202). Maybe something like
 ```jsx
   const { openPortal, closePortal, isOpen, Portal } = usePortal({
@@ -231,14 +232,8 @@ Todos
 ```
 - [ ] tests (priority)
 - [ ] maybe have a `<Provider order={['Portal', 'openPortal']} />` then you can change the order of the array destructuring syntax
-- [ ] make work without requiring the html synthetic event
-- [ ] add example for tooltip (like [this one](https://codepen.io/davidgilbertson/pen/ooXVyw))
-- [ ] add as many examples as possible 😊
 - [ ] fix code so maintainability is A
 - [ ] set up code climate test coverage
 - [ ] optimize badges [see awesome badge list](https://github.com/boennemann/badges)
   - [ ] add code climate test coverage badge
-- [X] document when you are required to have synthetic event
-- [X] make isomorphic
-- [X] continuous integration
-- [X] greenkeeper
+- [ ] add example to docs with using a `ref` instead of the `event` in `openPortal`, etc.
