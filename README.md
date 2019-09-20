@@ -148,7 +148,7 @@ const App = () => {
 ```
 
 ### Customizing the Portal directly
-By using `onOpen`, `onClose` or any other event handler, you can modify the `Portal` and return it. See [useDropdown](https://codesandbox.io/s/useportal-usedropdown-587fo) for a working example. It's important that you pass the `event` object to `openPortal` otherwise you will need to attach a ref to the clicked element.
+By using `onOpen`, `onClose` or any other event handler, you can modify the `Portal` and return it. See [useDropdown](https://codesandbox.io/s/useportal-usedropdown-587fo) for a working example. It's important that you pass the `event` object to `openPortal`, `closePortal`, and `togglePortal` otherwise you will need to attach a `ref` to the clicked element.
 
 ```jsx
 const useModal = () => {
