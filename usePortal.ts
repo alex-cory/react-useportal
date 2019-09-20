@@ -18,7 +18,6 @@ type UsePortalOptions = {
   closeOnEsc?: boolean
   bindTo?: HTMLElement // attach the portal to this node in the DOM
   isOpen?: boolean
-  stateful?: boolean
   onOpen?: CustomEventHandler
   onClose?: CustomEventHandler
 } & EventHandlers
