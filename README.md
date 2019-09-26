@@ -188,6 +188,34 @@ const App = () => {
 
 **Make sure you are passing the html synthetic event to the `openPortal` and `togglePortal` . i.e. `onClick={e => openPortal(e)}`**
 
+### Usage with a `ref`
+If for some reason, you don't want to pass around the `event` to `openPortal` or `togglePortal`, you can use a `ref` like this.
+```jsx
+import usePortal from 'react-useportal'
+
+const App = () => {
+  var { openPortal, isOpen, Portal, ref } = usePortal()
+
+  return (
+    <>
+      {/* see below how I don't have to pass the event if I use the ref */}
+      <button ref={ref} onClick={() => openPortal()}>
+        Open Portal
+      </button>
+      {isOpen && (
+        <Portal>
+          <p>
+            This Portal handles its own state.{' '}
+            <button onClick={closePortal}>Close me!</button>, hit ESC or
+            click outside of me.
+          </p>
+        </Portal>
+      )}
+    </>
+  )
+}
+```
+
 Options
 -----
 | Option                | Description                                                                              |
