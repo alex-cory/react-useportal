@@ -194,7 +194,7 @@ If for some reason, you don't want to pass around the `event` to `openPortal` or
 import usePortal from 'react-useportal'
 
 const App = () => {
-  var { openPortal, isOpen, Portal, ref } = usePortal()
+  var { ref, openPortal, closePortal, isOpen, Portal } = usePortal()
 
   return (
     <>
