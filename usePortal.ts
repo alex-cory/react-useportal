@@ -138,8 +138,8 @@ export default function usePortal({
     elToMountTo.appendChild(portal.current)
     // handles all special case handlers. Currently only onScroll and onWheel
     Object.entries(eventHandlerMap).forEach(([handlerName /* onScroll */, eventListenerName /* scroll */]) => {
-      if (!customEventHandlers[handlerName as keyof EventListenerMap]) return
-      eventListeners.current[handlerName as keyof EventListenerMap] = (e: any) => handleEvent(customEventHandlers[handlerName as keyof EventListenerMap], e)
+      if (!eventHandlers[handlerName as keyof EventListenerMap]) return
+      eventListeners.current[handlerName as keyof EventListenerMap] = (e: any) => handleEvent(eventHandlers[handlerName as keyof EventListenerMap], e)
       document.addEventListener(eventListenerName as keyof GlobalEventHandlersEventMap, eventListeners.current[handlerName as keyof EventListenerMap] as any)
     })
     document.addEventListener('keydown', handleKeydown)
@@ -148,7 +148,7 @@ export default function usePortal({
     return () => {
       // handles all special case handlers. Currently only onScroll and onWheel
       Object.entries(eventHandlerMap).forEach(([handlerName, eventListenerName]) => {
-        if (!customEventHandlers[handlerName as keyof EventListenerMap]) return
+        if (!eventHandlers[handlerName as keyof EventListenerMap]) return
         document.removeEventListener(eventListenerName as keyof GlobalEventHandlersEventMap, eventListeners.current[handlerName as keyof EventListenerMap] as any)
         delete eventListeners.current[handlerName as keyof EventListenerMap]
       })
