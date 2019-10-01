@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, useMemo, ReactNode, DOMAttributes, EventHandler, SyntheticEvent, MutableRefObject } from 'react'
+import { useState, useRef, useEffect, useCallback, useMemo, ReactNode, DOMAttributes, SyntheticEvent, MutableRefObject } from 'react'
 import { createPortal, findDOMNode } from 'react-dom'
 import useSSR from 'use-ssr'
 
@@ -8,10 +8,16 @@ type CustomEvent = {
   portal: HTMLElRef
   targetEl: HTMLElement
 }
+
 type CustomEventHandler = (customEvent: CustomEvent) => void | HTMLElRef
-type EventHandlers = {
-  [K in keyof DOMAttributes<K>]?: EventHandler<SyntheticEvent<any, Event>>
+type CustomEventHandlers = {
+  [K in keyof DOMAttributes<K>]?: CustomEventHandler
 }
+
+type EventListenerMap = { [K in keyof DOMAttributes<K>]: keyof GlobalEventHandlersEventMap }
+type EventListenersRef = MutableRefObject<{
+  [K in keyof DOMAttributes<K>]?: (event: SyntheticEvent<any, Event>) => void
+}>
 
 type UsePortalOptions = {
   closeOnOutsideClick?: boolean
@@ -20,7 +26,7 @@ type UsePortalOptions = {
   isOpen?: boolean
   onOpen?: CustomEventHandler
   onClose?: CustomEventHandler
-} & EventHandlers
+} & CustomEventHandlers
 
 type UsePortalObjectReturn = {} // TODO
 type UsePortalArrayReturn = [] // TODO
@@ -59,11 +65,20 @@ export default function usePortal({
     return (bindTo && findDOMNode(bindTo)) || document.body
   }, [isServer, bindTo])
 
-  const handleEvent = useCallback((func: CustomEventHandler, event?: SyntheticEvent<any, Event>) => {
-    if (event && event.currentTarget) targetEl.current = event.currentTarget as HTMLElement
+  const handleEvent = useCallback((func?: CustomEventHandler, event?: SyntheticEvent<any, Event>) => {
+    if (!func || isServer) return
+    if (event && event.currentTarget && event.currentTarget !== document) targetEl.current = event.currentTarget as HTMLElement
     // i.e. onClick, etc. inside usePortal({ onClick({ portal, targetEl }) {} })
     func({ portal, targetEl: targetEl.current as HTMLElement, event })
   }, [portal, targetEl]) 
+
+  // this should handle all eventHandlers like onClick, onMouseOver, etc. passed into the config
+  const customEventHandlers: CustomEventHandlers = Object
+    .entries(eventHandlers)
+    .reduce<any>((acc, [handlerName, eventHandler]) => {
+      acc[handlerName] = (event?: Event) => handleEvent(eventHandler, event as any)
+      return acc
+    }, {})
 
   const openPortal = useCallback((event: SyntheticEvent<any, Event>) => {
     if (isServer) return
@@ -104,18 +119,40 @@ export default function usePortal({
     if (closeOnOutsideClick) closePortal(e)
   }, [isServer, closePortal, closeOnOutsideClick, portal])
 
+  // used to remove the event listeners on unmount
+  const eventListeners = useRef({}) as EventListenersRef
+
   useEffect(() => {
     if (isServer) return
     if (!(elToMountTo instanceof HTMLElement) || !(portal.current instanceof HTMLElement)) return
 
+    // TODO: eventually will need to figure out a better solution for this.
+    // Surely we can find a way to map onScroll/onWheel -> scroll/wheel better,
+    // but for all other event handlers. For now this works.
+    const eventHandlerMap: EventListenerMap = {
+      onScroll: 'scroll',
+      onWheel: 'wheel',
+    }
     const node = portal.current
     elToMountTo.appendChild(portal.current)
-    document && document.addEventListener('keydown', handleKeydown)
-    document && document.addEventListener('mousedown', handleOutsideMouseClick)
+    // handles all special case handlers. Currently only onScroll and onWheel
+    Object.entries(eventHandlerMap).forEach(([handlerName /* onScroll */, eventListenerName /* scroll */]) => {
+      if (!eventHandlers[handlerName as keyof EventListenerMap]) return
+      eventListeners.current[handlerName as keyof EventListenerMap] = (e: any) => handleEvent(eventHandlers[handlerName as keyof EventListenerMap], e)
+      document.addEventListener(eventListenerName as keyof GlobalEventHandlersEventMap, eventListeners.current[handlerName as keyof EventListenerMap] as any)
+    })
+    document.addEventListener('keydown', handleKeydown)
+    document.addEventListener('mousedown', handleOutsideMouseClick)
 
     return () => {
-      document && document.removeEventListener('keydown', handleKeydown)
-      document && document.removeEventListener('mousedown', handleOutsideMouseClick)
+      // handles all special case handlers. Currently only onScroll and onWheel
+      Object.entries(eventHandlerMap).forEach(([handlerName, eventListenerName]) => {
+        if (!eventHandlers[handlerName as keyof EventListenerMap]) return
+        document.removeEventListener(eventListenerName as keyof GlobalEventHandlersEventMap, eventListeners.current[handlerName as keyof EventListenerMap] as any)
+        delete eventListeners.current[handlerName as keyof EventListenerMap]
+      })
+      document.removeEventListener('keydown', handleKeydown)
+      document.removeEventListener('mousedown', handleOutsideMouseClick)
       elToMountTo.removeChild(node)
     }
   }, [isServer, handleOutsideMouseClick, handleKeydown, elToMountTo, portal])
@@ -124,14 +161,6 @@ export default function usePortal({
     if (portal.current != null) return createPortal(children, portal.current)
     return null
   }, [portal])
-
-  // this should handle all eventHandlers like onClick, onMouseOver, etc. passed into the config
-  const customEventHandlers: EventHandlers = Object
-    .entries(eventHandlers)
-    .reduce<any>((acc, [handlerName, eventHandler]) => {
-      acc[handlerName] = (event?: SyntheticEvent<any, Event>) => handleEvent(eventHandler, event)
-      return acc
-    }, {})
 
   return Object.assign(
     [openPortal, closePortal, open.current, Portal, togglePortal],
@@ -143,7 +172,7 @@ export default function usePortal({
       togglePortal,
       Portal,
       ...customEventHandlers,
-      bind: {
+      bind: { // used if you want to spread all html attributes onto the target element
         ref: targetEl,
         ...customEventHandlers
       }
