@@ -156,11 +156,11 @@ const useModal = () => {
     onOpen({ portal }) {
       portal.current.style.cssText = `
         /* add your css here for the Portal */
-        position: absolute;
+        position: fixed;
         left: 50%;
         top: 50%;
         transform: translate(-50%,-50%);
-        z-index: 100;
+        z-index: 1000;
       `
     }
   })
