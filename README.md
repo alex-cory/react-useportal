@@ -227,6 +227,7 @@ Options
 | `isOpen` | This will be the default for the portal. Default is `false` |
 | `onOpen` | This is used to call something when the portal is opened and to modify the css of the portal directly |
 | `onClose` | This is used to call something when the portal is closed and to modify the css of the portal directly |
+| `onPortalClick` | This is fired whenever clicking on the `Portal` |
 | html event handlers (i.e. `onClick`) | These can be used instead of `onOpen` to modify the css of the portal directly. [`onMouseEnter` and `onMouseLeave` example](https://codesandbox.io/s/useportal-usedropdown-dgesf) |
 
 ### Option Usage
