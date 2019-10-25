@@ -34,6 +34,11 @@ type UsePortalArrayReturn = [] // TODO
 
 const errorMessage1 = 'You must either bind to an element or pass an event to openPortal(e).'
 
+const stopPropagation = (e: any) => {
+  e.stopPropagation()
+  e.preventDefault()
+}
+
 export default function usePortal({
   closeOnOutsideClick = true,
   closeOnEsc = true,
@@ -70,6 +75,7 @@ export default function usePortal({
   const handleEvent = useCallback((func?: CustomEventHandler, event?: SyntheticEvent<any, Event>) => {
     if (!func || isServer) return
     if (event && event.currentTarget && event.currentTarget !== document) targetEl.current = event.currentTarget as HTMLElement
+    if (event) stopPropagation(event)
     // i.e. onClick, etc. inside usePortal({ onClick({ portal, targetEl }) {} })
     func({ portal, targetEl, event, ...(event || {}) })
   }, [portal, targetEl]) 
@@ -87,6 +93,7 @@ export default function usePortal({
     // for some reason, when we don't have the event argument there
     // is a weird race condition, would like to see if we can remove
     // setTimeout, but for now this works
+    if (event) stopPropagation(event)
     if (event == null && targetEl.current == null) {
       setTimeout(() => setOpen(true), 0)
       throw Error(errorMessage1)
@@ -100,6 +107,7 @@ export default function usePortal({
 
   const closePortal = useCallback((event?: SyntheticEvent<any, Event>) => {
     if (isServer) return
+    if (event) stopPropagation(event)
     if (onClose) handleEvent(onClose, event)
     if (open.current) setOpen(false)
   }, [isServer, handleEvent, onClose, setOpen])
@@ -110,6 +118,7 @@ export default function usePortal({
   )
 
   const handleKeydown = useCallback(e => {
+    stopPropagation(e)
     var ESC = 27
     if (e.keyCode === ESC && closeOnEsc) closePortal(e)
   }, [closeOnEsc, closePortal])
@@ -117,11 +126,13 @@ export default function usePortal({
   const handleOutsideMouseClick = useCallback(e => {
     if (!(portal.current instanceof HTMLElement)) return
     if (portal.current.contains(e.target) || e.button !== 0 || !open.current || targetEl.current.contains(e.target)) return
+    stopPropagation(e)
     if (closeOnOutsideClick) closePortal(e)
   }, [isServer, closePortal, closeOnOutsideClick, portal])
 
   const handleMouseDown = useCallback(e => {
     if (isServer) return
+    stopPropagation(e)
     if (onPortalClick) handleEvent(onPortalClick, e)
     handleOutsideMouseClick(e)
   }, [handleOutsideMouseClick])
