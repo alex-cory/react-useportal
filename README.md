@@ -227,6 +227,7 @@ Options
 | `isOpen` | This will be the default for the portal. Default is `false` |
 | `onOpen` | This is used to call something when the portal is opened and to modify the css of the portal directly |
 | `onClose` | This is used to call something when the portal is closed and to modify the css of the portal directly |
+| `onPortalClick` | This is fired whenever clicking on the `Portal` |
 | html event handlers (i.e. `onClick`) | These can be used instead of `onOpen` to modify the css of the portal directly. [`onMouseEnter` and `onMouseLeave` example](https://codesandbox.io/s/useportal-usedropdown-dgesf) |
 
 ### Option Usage
@@ -243,8 +244,12 @@ const {
   closeOnEsc: true,
   bindTo, // attach the portal to this node in the DOM
   isOpen: false,
-  onOpen: ({ event, portal, targetEl }) => {},
-  onClose({ event, portal, targetEl }) {},
+  // targetEl is the element that you either are attaching a `ref` to
+  // or that you are putting `openPortal` or `togglePortal` on
+  onOpen: ({ portal, targetEl, ...event }) => {},
+  // `event` has all the fields that a normal `event` would have such as `event.target.value`, etc.
+  onClose({ portal, targetEl, ...event }) {},
+  onPortalClick({ portal, targetEl, ...event }) {},
   // in addition, any event handler such as onClick, onMouseOver, etc will be handled like
   onClick({ event, portal, targetEl }) {}
 })
@@ -254,6 +259,12 @@ Todos
 - [ ] maybe disable scrolling outside of the portal when it is open?
 - [ ] React Native support. [1](https://github.com/zenyr/react-native-portal) [2](https://github.com/cloudflare/react-gateway) [3](https://medium.com/@naorzruk/portals-in-react-native-22797ba8aa1b) [4](https://stackoverflow.com/questions/46505378/can-we-have-react-16-portal-functionality-react-native) [5](https://github.com/callstack/react-native-paper/blob/master/src/components/Portal/PortalManager.tsx) Probably going to have to add a `Provider`...
 - [ ] add correct return types
+- [ ] add a `Provider` for `useModal`. Potential syntax ideas
+  ```js
+  const App = (
+    <Provider background='rgba(0, 0, 0, 0.75)' animation=''><Root /></Provider>
+  )
+  ```
 - [ ] add support for popup windows [resource 1](https://javascript.info/popup-windows) [resource 2](https://hackernoon.com/using-a-react-16-portal-to-do-something-cool-2a2d627b0202). Maybe something like
 ```jsx
   const { openPortal, closePortal, isOpen, Portal } = usePortal({

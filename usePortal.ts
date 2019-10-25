@@ -6,10 +6,10 @@ type HTMLElRef = MutableRefObject<HTMLElement>
 type CustomEvent = {
   event?: SyntheticEvent<any, Event>
   portal: HTMLElRef
-  targetEl: HTMLElement
-}
+  targetEl: HTMLElRef
+} | SyntheticEvent<any, Event>
 
-type CustomEventHandler = (customEvent: CustomEvent) => void | HTMLElRef
+type CustomEventHandler = (customEvent: CustomEvent) => void
 type CustomEventHandlers = {
   [K in keyof DOMAttributes<K>]?: CustomEventHandler
 }
@@ -26,12 +26,18 @@ type UsePortalOptions = {
   isOpen?: boolean
   onOpen?: CustomEventHandler
   onClose?: CustomEventHandler
+  onPortalClick?: CustomEventHandler
 } & CustomEventHandlers
 
 type UsePortalObjectReturn = {} // TODO
 type UsePortalArrayReturn = [] // TODO
 
 const errorMessage1 = 'You must either bind to an element or pass an event to openPortal(e).'
+
+const stopPropagation = (e: any) => {
+  e.stopPropagation()
+  e.preventDefault()
+}
 
 export default function usePortal({
   closeOnOutsideClick = true,
@@ -40,6 +46,7 @@ export default function usePortal({
   isOpen: defaultIsOpen = false,
   onOpen,
   onClose,
+  onPortalClick,
   ...eventHandlers
 }: UsePortalOptions = {}): any {
   const { isServer, isBrowser } = useSSR()
@@ -68,8 +75,9 @@ export default function usePortal({
   const handleEvent = useCallback((func?: CustomEventHandler, event?: SyntheticEvent<any, Event>) => {
     if (!func || isServer) return
     if (event && event.currentTarget && event.currentTarget !== document) targetEl.current = event.currentTarget as HTMLElement
+    if (event) stopPropagation(event)
     // i.e. onClick, etc. inside usePortal({ onClick({ portal, targetEl }) {} })
-    func({ portal, targetEl: targetEl.current as HTMLElement, event })
+    func({ portal, targetEl, event, ...(event || {}) })
   }, [portal, targetEl]) 
 
   // this should handle all eventHandlers like onClick, onMouseOver, etc. passed into the config
@@ -85,6 +93,7 @@ export default function usePortal({
     // for some reason, when we don't have the event argument there
     // is a weird race condition, would like to see if we can remove
     // setTimeout, but for now this works
+    if (event) stopPropagation(event)
     if (event == null && targetEl.current == null) {
       setTimeout(() => setOpen(true), 0)
       throw Error(errorMessage1)
@@ -98,6 +107,7 @@ export default function usePortal({
 
   const closePortal = useCallback((event?: SyntheticEvent<any, Event>) => {
     if (isServer) return
+    if (event) stopPropagation(event)
     if (onClose) handleEvent(onClose, event)
     if (open.current) setOpen(false)
   }, [isServer, handleEvent, onClose, setOpen])
@@ -108,16 +118,24 @@ export default function usePortal({
   )
 
   const handleKeydown = useCallback(e => {
+    stopPropagation(e)
     var ESC = 27
     if (e.keyCode === ESC && closeOnEsc) closePortal(e)
   }, [closeOnEsc, closePortal])
 
-  const handleOutsideMouseClick = useCallback(e  => {
-    if (isServer) return
+  const handleOutsideMouseClick = useCallback(e => {
     if (!(portal.current instanceof HTMLElement)) return
     if (portal.current.contains(e.target) || e.button !== 0 || !open.current || targetEl.current.contains(e.target)) return
+    stopPropagation(e)
     if (closeOnOutsideClick) closePortal(e)
   }, [isServer, closePortal, closeOnOutsideClick, portal])
+
+  const handleMouseDown = useCallback(e => {
+    if (isServer) return
+    stopPropagation(e)
+    if (onPortalClick) handleEvent(onPortalClick, e)
+    handleOutsideMouseClick(e)
+  }, [handleOutsideMouseClick])
 
   // used to remove the event listeners on unmount
   const eventListeners = useRef({}) as EventListenersRef
@@ -142,7 +160,7 @@ export default function usePortal({
       document.addEventListener(eventListenerName as keyof GlobalEventHandlersEventMap, eventListeners.current[handlerName as keyof EventListenerMap] as any)
     })
     document.addEventListener('keydown', handleKeydown)
-    document.addEventListener('mousedown', handleOutsideMouseClick)
+    document.addEventListener('mousedown', handleMouseDown)
 
     return () => {
       // handles all special case handlers. Currently only onScroll and onWheel
@@ -152,7 +170,7 @@ export default function usePortal({
         delete eventListeners.current[handlerName as keyof EventListenerMap]
       })
       document.removeEventListener('keydown', handleKeydown)
-      document.removeEventListener('mousedown', handleOutsideMouseClick)
+      document.removeEventListener('mousedown', handleMouseDown)
       elToMountTo.removeChild(node)
     }
   }, [isServer, handleOutsideMouseClick, handleKeydown, elToMountTo, portal])
