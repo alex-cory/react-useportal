@@ -244,8 +244,11 @@ const {
   closeOnEsc: true,
   bindTo, // attach the portal to this node in the DOM
   isOpen: false,
-  onOpen: ({ event, portal, targetEl }) => {},
-  onClose({ event, portal, targetEl }) {},
+  // targetEl is the element that you either are attaching a `ref` to
+  // or that you are putting `openPortal` or `togglePortal` on
+  onOpen: ({ portal, targetEl, ...event }) => {},
+  onClose({ portal, targetEl, ...event }) {},
+  onPortalClick({ portal, targetEl, ...event }) {},
   // in addition, any event handler such as onClick, onMouseOver, etc will be handled like
   onClick({ event, portal, targetEl }) {}
 })
