@@ -246,10 +246,10 @@ const {
   isOpen: false,
   // targetEl is the element that you either are attaching a `ref` to
   // or that you are putting `openPortal` or `togglePortal` on
-  onOpen: ({ portal, targetEl, ...event }) => {},
+  onOpen: ({ portal, targetEl, event }) => {},
   // `event` has all the fields that a normal `event` would have such as `event.target.value`, etc.
-  onClose({ portal, targetEl, ...event }) {},
-  onPortalClick({ portal, targetEl, ...event }) {},
+  onClose({ portal, targetEl, event }) {},
+  onPortalClick({ portal, targetEl, event }) {},
   // in addition, any event handler such as onClick, onMouseOver, etc will be handled like
   onClick({ event, portal, targetEl }) {}
 })
