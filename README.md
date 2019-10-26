@@ -231,6 +231,7 @@ Options
 | html event handlers (i.e. `onClick`) | These can be used instead of `onOpen` to modify the css of the portal directly. [`onMouseEnter` and `onMouseLeave` example](https://codesandbox.io/s/useportal-usedropdown-dgesf) |
 
 ### Option Usage
+
 ```js
 const {
   openPortal,
@@ -244,14 +245,18 @@ const {
   closeOnEsc: true,
   bindTo, // attach the portal to this node in the DOM
   isOpen: false,
-  // targetEl is the element that you either are attaching a `ref` to
-  // or that you are putting `openPortal` or `togglePortal` on
-  onOpen: ({ portal, targetEl, event }) => {},
   // `event` has all the fields that a normal `event` would have such as `event.target.value`, etc.
+  // with the additional `portal` and `targetEl` added to it as seen in the examples below
+  onOpen: (event) => {
+    // can access: event.portal, event.targetEl, event.event, event.target, etc.
+  },
+  // `onClose` will not have an `event` unless you pass an `event` to `closePortal`
   onClose({ portal, targetEl, event }) {},
+  // `targetEl` is the element that you either are attaching a `ref` to
+  // or that you are putting `openPortal` or `togglePortal` or `closePortal` on
   onPortalClick({ portal, targetEl, event }) {},
-  // in addition, any event handler such as onClick, onMouseOver, etc will be handled like
-  onClick({ event, portal, targetEl }) {}
+  // in addition, any event handler such as onClick, onMouseOver, etc will be handled the same
+  onClick({ portal, targetEl, event }) {}
 })
 ```
 Todos
