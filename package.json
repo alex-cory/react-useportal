@@ -1,6 +1,6 @@
 {
   "name": "react-useportal",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "homepage": "https://codesandbox.io/s/w6jp7z4pkk",
   "main": "dist/usePortal.js",
   "repository": {
