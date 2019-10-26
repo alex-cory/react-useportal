@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks'
-import usePortal from './usePortal'
+import usePortal, { errorMessage1 } from './usePortal'
 
 describe('usePortal', () => {
   it('should not be open', () => {
@@ -13,7 +13,7 @@ describe('usePortal', () => {
     try {
       result.current.openPortal()
     } catch(err) {
-      expect(err.message).toBe('You must either bind to an element or pass an event to openPortal(e).')
+      expect(err.message).toBe(errorMessage1)
     }
   })
 })

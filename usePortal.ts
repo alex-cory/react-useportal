@@ -32,7 +32,7 @@ type UsePortalOptions = {
 type UsePortalObjectReturn = {} // TODO
 type UsePortalArrayReturn = [] // TODO
 
-const errorMessage1 = 'You must either add a `ref` to the element you are interacting with or pass an `event` to openPortal(e).'
+export const errorMessage1 = 'You must either add a `ref` to the element you are interacting with or pass an `event` to openPortal(e) or togglePortal(e).'
 
 export default function usePortal({
   closeOnOutsideClick = true,
@@ -67,16 +67,15 @@ export default function usePortal({
     return (bindTo && findDOMNode(bindTo)) || document.body
   }, [isServer, bindTo])
 
-  const customEvent = useCallback((e: any) => {
+  const createCustomEvent = (e: any) => {
+    if (!e) return { portal, targetEl, event: e }
     const event = e || {}
     if (event.persist) event.persist()
     event.portal = portal
     event.targetEl = targetEl
     event.event = e
     return event
-  }, [])
-
-  const useCustomEventCallback = (cb: any, deps?: any): any => useCallback((e: any) => cb(customEvent(event)), deps)
+  }
 
   // this should handle all eventHandlers like onClick, onMouseOver, etc. passed into the config
   const customEventHandlers: CustomEventHandlers = Object
@@ -84,29 +83,30 @@ export default function usePortal({
     .reduce<any>((acc, [handlerName, eventHandler]) => {
       acc[handlerName] = (event?: SyntheticEvent<any, Event>) => {
         if (isServer) return
-        eventHandler(customEvent(event))
+        eventHandler(createCustomEvent(event))
       }
       return acc
     }, {})
 
-  const openPortal = useCustomEventCallback((event: CustomEvent) => {
+  const openPortal = useCallback((e: any) => {
+    const customEvent = createCustomEvent(e)
     if (isServer) return
-    // for some reason, when we don't have the event argument there
-    // is a weird race condition, would like to see if we can remove
+    if (!targetEl.current && 'currentTarget' in customEvent) targetEl.current = e.currentTarget
+    // for some reason, when we don't have the event argument, there
+    // is a weird race condition. Would like to see if we can remove
     // setTimeout, but for now this works
-    if (event == null && targetEl.current == null) {
+    if (targetEl.current == null) {
       setTimeout(() => setOpen(true), 0)
       throw Error(errorMessage1)
     }
-    if (event) targetEl.current = event.currentTarget
-    if (!targetEl.current) throw Error(errorMessage1)
-    if (onOpen) onOpen(event)
+    if (onOpen) onOpen(customEvent)
     setOpen(true)
   }, [isServer, portal, setOpen, targetEl, onOpen])
 
-  const closePortal = useCustomEventCallback((event: CustomEvent) => {
+  const closePortal = useCallback((e: any) => {
+    const customEvent = createCustomEvent(e)
     if (isServer) return
-    if (onClose && open.current) onClose(event)
+    if (onClose && open.current) onClose(customEvent)
     if (open.current) setOpen(false)
   }, [isServer, onClose, setOpen])
 
@@ -116,19 +116,20 @@ export default function usePortal({
   )
 
   const handleKeydown = useCallback((e: KeyboardEvent): void => 
-    (e.key === 'Escape' && closeOnEsc) && closePortal(e),
+    (e.key === 'Escape' && closeOnEsc) ? closePortal(e) : undefined,
     [closeOnEsc, closePortal]
   )
 
-  const handleOutsideMouseClick = useCallback((e: CustomEvent): void => {
+  const handleOutsideMouseClick = useCallback((e: MouseEvent): void => {
     const containsTarget = (target: HTMLElRef) => target.current.contains(e.target as HTMLElement)
     if (containsTarget(portal) || (e as any).button !== 0 || !open.current || containsTarget(targetEl)) return
     if (closeOnOutsideClick) closePortal(e)
   }, [isServer, closePortal, closeOnOutsideClick, portal])
 
-  const handleMouseDown = useCustomEventCallback((e: CustomEvent): void => {
+  const handleMouseDown = useCallback((e: MouseEvent): void => {
+    const customEvent = createCustomEvent(e)
     if (isServer || !(portal.current instanceof HTMLElement)) return
-    if (portal.current.contains(e.target as HTMLElement) && onPortalClick) onPortalClick(e)
+    if (portal.current.contains(customEvent.target as HTMLElement) && onPortalClick) onPortalClick(customEvent)
     handleOutsideMouseClick(e)
   }, [handleOutsideMouseClick])
 
