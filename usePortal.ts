@@ -74,7 +74,8 @@ export default function usePortal({
     event.portal = portal
     event.targetEl = targetEl
     event.event = e
-    if (!targetEl.current && 'currentTarget' in event) targetEl.current = event.currentTarget
+    const { currentTarget } = e
+    if (!targetEl.current && currentTarget && currentTarget !== document) targetEl.current = event.currentTarget
     return event
   }
 
@@ -90,8 +91,8 @@ export default function usePortal({
     }, {})
 
   const openPortal = useCallback((e: any) => {
-    const customEvent = createCustomEvent(e)
     if (isServer) return
+    const customEvent = createCustomEvent(e)
     // for some reason, when we don't have the event argument, there
     // is a weird race condition. Would like to see if we can remove
     // setTimeout, but for now this works
@@ -104,8 +105,8 @@ export default function usePortal({
   }, [isServer, portal, setOpen, targetEl, onOpen])
 
   const closePortal = useCallback((e: any) => {
-    const customEvent = createCustomEvent(e)
     if (isServer) return
+    const customEvent = createCustomEvent(e)
     if (onClose && open.current) onClose(customEvent)
     if (open.current) setOpen(false)
   }, [isServer, onClose, setOpen])
@@ -127,8 +128,8 @@ export default function usePortal({
   }, [isServer, closePortal, closeOnOutsideClick, portal])
 
   const handleMouseDown = useCallback((e: MouseEvent): void => {
-    const customEvent = createCustomEvent(e)
     if (isServer || !(portal.current instanceof HTMLElement)) return
+    const customEvent = createCustomEvent(e)
     if (portal.current.contains(customEvent.target as HTMLElement) && onPortalClick) onPortalClick(customEvent)
     handleOutsideMouseClick(e)
   }, [handleOutsideMouseClick])
