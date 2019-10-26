@@ -74,6 +74,7 @@ export default function usePortal({
     event.portal = portal
     event.targetEl = targetEl
     event.event = e
+    if (!targetEl.current && 'currentTarget' in event) targetEl.current = event.currentTarget
     return event
   }
 
@@ -91,7 +92,6 @@ export default function usePortal({
   const openPortal = useCallback((e: any) => {
     const customEvent = createCustomEvent(e)
     if (isServer) return
-    if (!targetEl.current && 'currentTarget' in customEvent) targetEl.current = e.currentTarget
     // for some reason, when we don't have the event argument, there
     // is a weird race condition. Would like to see if we can remove
     // setTimeout, but for now this works
@@ -152,7 +152,7 @@ export default function usePortal({
     // handles all special case handlers. Currently only onScroll and onWheel
     Object.entries(eventHandlerMap).forEach(([handlerName /* onScroll */, eventListenerName /* scroll */]) => {
       if (!eventHandlers[handlerName as keyof EventListenerMap]) return
-      eventListeners.current[handlerName as keyof EventListenerMap] = (e: any) => (eventHandlers[handlerName as keyof EventListenerMap] as any)(e)
+      eventListeners.current[handlerName as keyof EventListenerMap] = (e: any) => (eventHandlers[handlerName as keyof EventListenerMap] as any)(createCustomEvent(e))
       document.addEventListener(eventListenerName as keyof GlobalEventHandlersEventMap, eventListeners.current[handlerName as keyof EventListenerMap] as any)
     })
     document.addEventListener('keydown', handleKeydown)
