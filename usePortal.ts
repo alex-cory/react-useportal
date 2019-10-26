@@ -67,27 +67,25 @@ export default function usePortal({
     return (bindTo && findDOMNode(bindTo)) || document.body
   }, [isServer, bindTo])
 
-  const useCustomEventCallback = (cb: any, deps?: any): any => useCallback((e: any) => {
+  const customEvent = useCallback((e: any) => {
     const event = e || {}
     if (event.persist) event.persist()
     event.portal = portal
     event.targetEl = targetEl
     event.event = e
-    cb(event as CustomEvent)
-  }, deps)
+    return event
+  }, [])
 
-  const handleEvent = useCallback((func?: any, event?: SyntheticEvent<any, Event>) => {
-    if (!func || isServer) return
-    if (event && event.currentTarget && event.currentTarget !== document) targetEl.current = event.currentTarget as HTMLElement
-    // i.e. onClick, etc. inside usePortal({ onClick({ portal, targetEl }) {} })
-    func(event)
-  }, [portal, targetEl]) 
+  const useCustomEventCallback = (cb: any, deps?: any): any => useCallback((e: any) => cb(customEvent(event)), deps)
 
   // this should handle all eventHandlers like onClick, onMouseOver, etc. passed into the config
   const customEventHandlers: CustomEventHandlers = Object
     .entries(eventHandlers)
     .reduce<any>((acc, [handlerName, eventHandler]) => {
-      acc[handlerName] = (event?: SyntheticEvent<any, Event>) => handleEvent(eventHandler, event)
+      acc[handlerName] = (event?: SyntheticEvent<any, Event>) => {
+        if (isServer) return
+        eventHandler(customEvent(event))
+      }
       return acc
     }, {})
 
@@ -102,15 +100,15 @@ export default function usePortal({
     }
     if (event) targetEl.current = event.currentTarget
     if (!targetEl.current) throw Error(errorMessage1)
-    if (onOpen) handleEvent(onOpen, event)
+    if (onOpen) onOpen(event)
     setOpen(true)
-  }, [isServer, portal, setOpen, handleEvent, targetEl, onOpen])
+  }, [isServer, portal, setOpen, targetEl, onOpen])
 
-  const closePortal = useCustomEventCallback((event?: CustomEvent) => {
+  const closePortal = useCustomEventCallback((event: CustomEvent) => {
     if (isServer) return
-    if (onClose && open.current) handleEvent(onClose, event)
+    if (onClose && open.current) onClose(event)
     if (open.current) setOpen(false)
-  }, [isServer, handleEvent, onClose, setOpen])
+  }, [isServer, onClose, setOpen])
 
   const togglePortal = useCallback((e: SyntheticEvent<any, Event>): void => 
     open.current ? closePortal(e) : openPortal(e),
@@ -122,15 +120,15 @@ export default function usePortal({
     [closeOnEsc, closePortal]
   )
 
-  const handleOutsideMouseClick = useCallback((e: MouseEvent): void => {
+  const handleOutsideMouseClick = useCallback((e: CustomEvent): void => {
     const containsTarget = (target: HTMLElRef) => target.current.contains(e.target as HTMLElement)
-    if (containsTarget(portal) || e.button !== 0 || !open.current || containsTarget(targetEl)) return
+    if (containsTarget(portal) || (e as any).button !== 0 || !open.current || containsTarget(targetEl)) return
     if (closeOnOutsideClick) closePortal(e)
   }, [isServer, closePortal, closeOnOutsideClick, portal])
 
-  const handleMouseDown = useCallback((e: MouseEvent): void => {
+  const handleMouseDown = useCustomEventCallback((e: CustomEvent): void => {
     if (isServer || !(portal.current instanceof HTMLElement)) return
-    if (portal.current.contains(e.target as HTMLElement) && onPortalClick) handleEvent(onPortalClick, e)
+    if (portal.current.contains(e.target as HTMLElement) && onPortalClick) onPortalClick(e)
     handleOutsideMouseClick(e)
   }, [handleOutsideMouseClick])
 
@@ -153,7 +151,7 @@ export default function usePortal({
     // handles all special case handlers. Currently only onScroll and onWheel
     Object.entries(eventHandlerMap).forEach(([handlerName /* onScroll */, eventListenerName /* scroll */]) => {
       if (!eventHandlers[handlerName as keyof EventListenerMap]) return
-      eventListeners.current[handlerName as keyof EventListenerMap] = (e: any) => handleEvent(eventHandlers[handlerName as keyof EventListenerMap], e)
+      eventListeners.current[handlerName as keyof EventListenerMap] = (e: any) => (eventHandlers[handlerName as keyof EventListenerMap] as any)(e)
       document.addEventListener(eventListenerName as keyof GlobalEventHandlersEventMap, eventListeners.current[handlerName as keyof EventListenerMap] as any)
     })
     document.addEventListener('keydown', handleKeydown)
