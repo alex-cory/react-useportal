@@ -7,7 +7,7 @@ type CustomEvent = {
   event?: SyntheticEvent<any, Event>
   portal: HTMLElRef
   targetEl: HTMLElRef
-} | SyntheticEvent<any, Event>
+} & SyntheticEvent<any, Event>
 
 type CustomEventHandler = (customEvent: CustomEvent) => void
 type CustomEventHandlers = {
@@ -35,8 +35,9 @@ type UsePortalArrayReturn = [] // TODO
 const errorMessage1 = 'You must either bind to an element or pass an event to openPortal(e).'
 
 const stopPropagation = (e: any) => {
-  e.stopPropagation()
-  e.preventDefault()
+  if (e && e.nativeEvent) e.nativeEvent.stopImmediatePropagation()
+  if (e) e.stopPropagation()
+  if (e) e.preventDefault()
 }
 
 export default function usePortal({
@@ -72,12 +73,20 @@ export default function usePortal({
     return (bindTo && findDOMNode(bindTo)) || document.body
   }, [isServer, bindTo])
 
+  const customEvent = useCallback((e: any) => {
+    const event = e || {}
+    event.portal = portal
+    event.targetEl = targetEl
+    event.event = e
+    return event
+  }, [])
+
   const handleEvent = useCallback((func?: CustomEventHandler, event?: SyntheticEvent<any, Event>) => {
     if (!func || isServer) return
     if (event && event.currentTarget && event.currentTarget !== document) targetEl.current = event.currentTarget as HTMLElement
     if (event) stopPropagation(event)
     // i.e. onClick, etc. inside usePortal({ onClick({ portal, targetEl }) {} })
-    func({ portal, targetEl, event, ...(event || {}) })
+    func(customEvent(event))
   }, [portal, targetEl]) 
 
   // this should handle all eventHandlers like onClick, onMouseOver, etc. passed into the config
@@ -93,12 +102,11 @@ export default function usePortal({
     // for some reason, when we don't have the event argument there
     // is a weird race condition, would like to see if we can remove
     // setTimeout, but for now this works
-    if (event) stopPropagation(event)
     if (event == null && targetEl.current == null) {
       setTimeout(() => setOpen(true), 0)
       throw Error(errorMessage1)
     }
-    if (event && event.nativeEvent) event.nativeEvent.stopImmediatePropagation()
+    if (event) stopPropagation(event)
     if (event) targetEl.current = event.currentTarget
     if (!targetEl.current) throw Error(errorMessage1)
     if (onOpen) handleEvent(onOpen, event)
@@ -108,7 +116,7 @@ export default function usePortal({
   const closePortal = useCallback((event?: SyntheticEvent<any, Event>) => {
     if (isServer) return
     if (event) stopPropagation(event)
-    if (onClose) handleEvent(onClose, event)
+    if (onClose && open.current) handleEvent(onClose, event)
     if (open.current) setOpen(false)
   }, [isServer, handleEvent, onClose, setOpen])
 
@@ -124,7 +132,6 @@ export default function usePortal({
   }, [closeOnEsc, closePortal])
 
   const handleOutsideMouseClick = useCallback(e => {
-    if (!(portal.current instanceof HTMLElement)) return
     if (portal.current.contains(e.target) || e.button !== 0 || !open.current || targetEl.current.contains(e.target)) return
     stopPropagation(e)
     if (closeOnOutsideClick) closePortal(e)
@@ -133,7 +140,8 @@ export default function usePortal({
   const handleMouseDown = useCallback(e => {
     if (isServer) return
     stopPropagation(e)
-    if (onPortalClick) handleEvent(onPortalClick, e)
+    if (!(portal.current instanceof HTMLElement)) return
+    if (portal.current.contains(e.target) && onPortalClick) handleEvent(onPortalClick, e)
     handleOutsideMouseClick(e)
   }, [handleOutsideMouseClick])
 
