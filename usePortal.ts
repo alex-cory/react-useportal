@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, useMemo, ReactNode, DOMAttributes, SyntheticEvent, MutableRefObject } from 'react'
+import { useState, useRef, useEffect, useCallback, useMemo, ReactNode, DOMAttributes, SyntheticEvent, MutableRefObject, MouseEvent } from 'react'
 import { createPortal, findDOMNode } from 'react-dom'
 import useSSR from 'use-ssr'
 
@@ -32,13 +32,7 @@ type UsePortalOptions = {
 type UsePortalObjectReturn = {} // TODO
 type UsePortalArrayReturn = [] // TODO
 
-const errorMessage1 = 'You must either bind to an element or pass an event to openPortal(e).'
-
-const stopPropagation = (e: any) => {
-  if (e && e.nativeEvent) e.nativeEvent.stopImmediatePropagation()
-  if (e) e.stopPropagation()
-  if (e) e.preventDefault()
-}
+const errorMessage1 = 'You must either add a `ref` to the element you are interacting with or pass an `event` to openPortal(e).'
 
 export default function usePortal({
   closeOnOutsideClick = true,
@@ -73,31 +67,31 @@ export default function usePortal({
     return (bindTo && findDOMNode(bindTo)) || document.body
   }, [isServer, bindTo])
 
-  const customEvent = useCallback((e: any) => {
+  const useCustomEventCallback = (cb: any, deps?: any): any => useCallback((e: any) => {
     const event = e || {}
+    if (event.persist) event.persist()
     event.portal = portal
     event.targetEl = targetEl
     event.event = e
-    return event
-  }, [])
+    cb(event as CustomEvent)
+  }, deps)
 
-  const handleEvent = useCallback((func?: CustomEventHandler, event?: SyntheticEvent<any, Event>) => {
+  const handleEvent = useCallback((func?: any, event?: SyntheticEvent<any, Event>) => {
     if (!func || isServer) return
     if (event && event.currentTarget && event.currentTarget !== document) targetEl.current = event.currentTarget as HTMLElement
-    if (event) stopPropagation(event)
     // i.e. onClick, etc. inside usePortal({ onClick({ portal, targetEl }) {} })
-    func(customEvent(event))
+    func(event)
   }, [portal, targetEl]) 
 
   // this should handle all eventHandlers like onClick, onMouseOver, etc. passed into the config
   const customEventHandlers: CustomEventHandlers = Object
     .entries(eventHandlers)
     .reduce<any>((acc, [handlerName, eventHandler]) => {
-      acc[handlerName] = (event?: Event) => handleEvent(eventHandler, event as any)
+      acc[handlerName] = (event?: SyntheticEvent<any, Event>) => handleEvent(eventHandler, event)
       return acc
     }, {})
 
-  const openPortal = useCallback((event: SyntheticEvent<any, Event>) => {
+  const openPortal = useCustomEventCallback((event: CustomEvent) => {
     if (isServer) return
     // for some reason, when we don't have the event argument there
     // is a weird race condition, would like to see if we can remove
@@ -106,42 +100,37 @@ export default function usePortal({
       setTimeout(() => setOpen(true), 0)
       throw Error(errorMessage1)
     }
-    if (event) stopPropagation(event)
     if (event) targetEl.current = event.currentTarget
     if (!targetEl.current) throw Error(errorMessage1)
     if (onOpen) handleEvent(onOpen, event)
     setOpen(true)
   }, [isServer, portal, setOpen, handleEvent, targetEl, onOpen])
 
-  const closePortal = useCallback((event?: SyntheticEvent<any, Event>) => {
+  const closePortal = useCustomEventCallback((event?: CustomEvent) => {
     if (isServer) return
-    if (event) stopPropagation(event)
     if (onClose && open.current) handleEvent(onClose, event)
     if (open.current) setOpen(false)
   }, [isServer, handleEvent, onClose, setOpen])
 
-  const togglePortal = useCallback((e: SyntheticEvent<any, Event>) => 
+  const togglePortal = useCallback((e: SyntheticEvent<any, Event>): void => 
     open.current ? closePortal(e) : openPortal(e),
     [closePortal, openPortal]
   )
 
-  const handleKeydown = useCallback(e => {
-    stopPropagation(e)
-    var ESC = 27
-    if (e.keyCode === ESC && closeOnEsc) closePortal(e)
-  }, [closeOnEsc, closePortal])
+  const handleKeydown = useCallback((e: KeyboardEvent): void => 
+    (e.key === 'Escape' && closeOnEsc) && closePortal(e),
+    [closeOnEsc, closePortal]
+  )
 
-  const handleOutsideMouseClick = useCallback(e => {
-    if (portal.current.contains(e.target) || e.button !== 0 || !open.current || targetEl.current.contains(e.target)) return
-    stopPropagation(e)
+  const handleOutsideMouseClick = useCallback((e: MouseEvent): void => {
+    const containsTarget = (target: HTMLElRef) => target.current.contains(e.target as HTMLElement)
+    if (containsTarget(portal) || e.button !== 0 || !open.current || containsTarget(targetEl)) return
     if (closeOnOutsideClick) closePortal(e)
   }, [isServer, closePortal, closeOnOutsideClick, portal])
 
-  const handleMouseDown = useCallback(e => {
-    if (isServer) return
-    stopPropagation(e)
-    if (!(portal.current instanceof HTMLElement)) return
-    if (portal.current.contains(e.target) && onPortalClick) handleEvent(onPortalClick, e)
+  const handleMouseDown = useCallback((e: MouseEvent): void => {
+    if (isServer || !(portal.current instanceof HTMLElement)) return
+    if (portal.current.contains(e.target as HTMLElement) && onPortalClick) handleEvent(onPortalClick, e)
     handleOutsideMouseClick(e)
   }, [handleOutsideMouseClick])
 
@@ -168,7 +157,7 @@ export default function usePortal({
       document.addEventListener(eventListenerName as keyof GlobalEventHandlersEventMap, eventListeners.current[handlerName as keyof EventListenerMap] as any)
     })
     document.addEventListener('keydown', handleKeydown)
-    document.addEventListener('mousedown', handleMouseDown)
+    document.addEventListener('mousedown', handleMouseDown as any)
 
     return () => {
       // handles all special case handlers. Currently only onScroll and onWheel
@@ -178,7 +167,7 @@ export default function usePortal({
         delete eventListeners.current[handlerName as keyof EventListenerMap]
       })
       document.removeEventListener('keydown', handleKeydown)
-      document.removeEventListener('mousedown', handleMouseDown)
+      document.removeEventListener('mousedown', handleMouseDown as any)
       elToMountTo.removeChild(node)
     }
   }, [isServer, handleOutsideMouseClick, handleKeydown, elToMountTo, portal])
