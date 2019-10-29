@@ -265,7 +265,6 @@ const {
 ```
 Todos
 ------
-- [ ] maybe disable scrolling outside of the portal when it is open?
 - [ ] React Native support. [1](https://github.com/zenyr/react-native-portal) [2](https://github.com/cloudflare/react-gateway) [3](https://medium.com/@naorzruk/portals-in-react-native-22797ba8aa1b) [4](https://stackoverflow.com/questions/46505378/can-we-have-react-16-portal-functionality-react-native) [5](https://github.com/callstack/react-native-paper/blob/master/src/components/Portal/PortalManager.tsx) Probably going to have to add a `Provider`...
 - [ ] add correct return types
 - [ ] add a `Provider` for `useModal`. Potential syntax ideas
