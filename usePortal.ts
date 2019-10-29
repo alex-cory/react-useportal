@@ -178,7 +178,7 @@ export default function usePortal({
   }, [portal])
 
   return Object.assign(
-    [openPortal, closePortal, open.current, Portal, togglePortal],
+    [openPortal, closePortal, open.current, Portal, togglePortal, targetEl, portal],
     {
       isOpen: open.current,
       openPortal,
@@ -186,6 +186,7 @@ export default function usePortal({
       closePortal,
       togglePortal,
       Portal,
+      portalRef: portal,
       ...customEventHandlers,
       bind: { // used if you want to spread all html attributes onto the target element
         ref: targetEl,
