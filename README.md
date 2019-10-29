@@ -239,7 +239,11 @@ const {
   togglePortal,
   isOpen,
   Portal,
-  ref, // if you don't pass an event to openPortal, closePortal, or togglePortal, you will need to put this on the element you want to interact with/click
+  // if you don't pass an event to openPortal, closePortal, or togglePortal, you will need
+  // to put this on the element you want to interact with/click
+  ref,
+  // if for some reason you want to interact directly with the portal, you can with this ref
+  portalRef,
 } = usePortal({
   closeOnOutsideClick: true,
   closeOnEsc: true,
