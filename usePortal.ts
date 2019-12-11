@@ -27,7 +27,6 @@ type UsePortalOptions = {
   onOpen?: CustomEventHandler
   onClose?: CustomEventHandler
   onPortalClick?: CustomEventHandler
-  className?: string
 } & CustomEventHandlers
 
 type UsePortalObjectReturn = {} // TODO
@@ -43,7 +42,6 @@ export default function usePortal({
   onOpen,
   onClose,
   onPortalClick,
-  className,
   ...eventHandlers
 }: UsePortalOptions = {}): any {
   const { isServer, isBrowser } = useSSR()
@@ -63,9 +61,6 @@ export default function usePortal({
   useEffect(() => {
     if (isBrowser && !portal.current) {
       portal.current = document.createElement('div')
-      if(className){
-        portal.current.className = className
-      }
     }
 
   }, [isBrowser, portal])
@@ -180,8 +175,13 @@ export default function usePortal({
     }
   }, [isServer, handleOutsideMouseClick, handleKeydown, elToMountTo, portal])
 
-  const Portal = useCallback(({ children }: { children: ReactNode }) => {
-    if (portal.current != null) return createPortal(children, portal.current)
+  const Portal = useCallback(({ children, className }: { children: ReactNode, className: string }) => {
+    if (portal.current != null) {
+      if(className && portal.current){
+        portal.current.className = className
+      }
+      return createPortal(children, portal.current)
+    }
     return null
   }, [portal])
 

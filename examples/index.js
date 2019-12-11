@@ -10,7 +10,7 @@ const Exmaple1 = () => {
       <h3>Example 1</h3>
       <button onClick={openPortal}>Open Portal</button>
       {isOpen && (
-        <Portal>
+        <Portal className="my-portal">
           <div>
             Cool
             <button onClick={closePortal}>Close Portal</button>
