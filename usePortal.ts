@@ -27,6 +27,7 @@ type UsePortalOptions = {
   onOpen?: CustomEventHandler
   onClose?: CustomEventHandler
   onPortalClick?: CustomEventHandler
+  className?: string
 } & CustomEventHandlers
 
 type UsePortalObjectReturn = {} // TODO
@@ -42,6 +43,7 @@ export default function usePortal({
   onOpen,
   onClose,
   onPortalClick,
+  className,
   ...eventHandlers
 }: UsePortalOptions = {}): any {
   const { isServer, isBrowser } = useSSR()
@@ -59,7 +61,13 @@ export default function usePortal({
   const portal = useRef(isBrowser ? document.createElement('div') : null) as HTMLElRef
 
   useEffect(() => {
-    if (isBrowser && !portal.current) portal.current = document.createElement('div')
+    if (isBrowser && !portal.current) {
+      portal.current = document.createElement('div')
+      if(className){
+        portal.current.className = className
+      }
+    }
+
   }, [isBrowser, portal])
 
   const elToMountTo = useMemo(() => {
