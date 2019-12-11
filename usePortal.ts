@@ -59,10 +59,7 @@ export default function usePortal({
   const portal = useRef(isBrowser ? document.createElement('div') : null) as HTMLElRef
 
   useEffect(() => {
-    if (isBrowser && !portal.current) {
-      portal.current = document.createElement('div')
-    }
-
+    if (isBrowser && !portal.current) portal.current = document.createElement('div')
   }, [isBrowser, portal])
 
   const elToMountTo = useMemo(() => {
