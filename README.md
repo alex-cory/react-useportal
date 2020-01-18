@@ -152,7 +152,7 @@ By using `onOpen`, `onClose` or any other event handler, you can modify the `Por
 
 ```jsx
 const useModal = () => {
-  const { isOpen, togglePortal, closePortal, Portal } = usePortal({
+  const { isOpen, openPortal, togglePortal, closePortal, Portal } = usePortal({
     onOpen({ portal }) {
       portal.current.style.cssText = `
         /* add your css here for the Portal */
@@ -167,6 +167,7 @@ const useModal = () => {
 
   return {
     Modal: Portal,
+    openModal: openPortal,
     toggleModal: togglePortal,
     closeModal: closePortal,
     isOpen
