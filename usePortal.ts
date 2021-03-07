@@ -19,7 +19,7 @@ type EventListenersRef = MutableRefObject<{
   [K in keyof DOMAttributes<K>]?: (event: SyntheticEvent<any, Event>) => void
 }>
 
-type UsePortalOptions = {
+export type UsePortalOptions = {
   closeOnOutsideClick?: boolean
   closeOnEsc?: boolean
   bindTo?: HTMLElement // attach the portal to this node in the DOM
