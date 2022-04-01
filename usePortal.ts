@@ -149,7 +149,6 @@ export default function usePortal({
       onWheel: 'wheel',
     }
     const node = portal.current
-    elToMountTo.appendChild(portal.current)
     // handles all special case handlers. Currently only onScroll and onWheel
     Object.entries(eventHandlerMap).forEach(([handlerName /* onScroll */, eventListenerName /* scroll */]) => {
       if (!eventHandlers[handlerName as keyof EventListenerMap]) return
@@ -168,11 +167,23 @@ export default function usePortal({
       })
       document.removeEventListener('keydown', handleKeydown)
       document.removeEventListener('mousedown', handleMouseDown as any)
-      elToMountTo.removeChild(node)
+      // in case for some reason, we didn't remove the node when destroying Portal
+      if (elToMountTo instanceof HTMLElement && node instanceof HTMLElement && elToMountTo.contains(node)) {
+        elToMountTo.removeChild(node)
+      }
     }
   }, [isServer, handleOutsideMouseClick, handleKeydown, elToMountTo, portal])
 
   const Portal = useCallback(({ children }: { children: ReactNode }) => {
+    useEffect(() => {
+      const node = portal.current
+      if (!(elToMountTo instanceof HTMLElement) || !(portal.current instanceof HTMLElement)) return
+      elToMountTo.appendChild(portal.current)
+      return () => {
+        if (!(elToMountTo instanceof HTMLElement) || !(portal.current instanceof HTMLElement)) return
+        if (elToMountTo.contains(node)) elToMountTo.removeChild(node)
+      }
+    }, [])
     if (portal.current != null) return createPortal(children, portal.current)
     return null
   }, [portal])
