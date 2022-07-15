@@ -44,110 +44,100 @@ This hook is also isomorphic, meaning it works with SSR (server side rendering).
   </a>
 </p>
 
-Features
---------
+## Features
+
 - SSR (server side rendering) support
 - TypeScript support
 - 1 dependency ([use-ssr](https://github.com/alex-cory/use-ssr))
 - Built in state
 
 ### Examples
+
 - [SSR Example - Next.js - codesandbox container](https://codesandbox.io/s/useportal-in-nextjs-codesandbox-container-9rm5o) (sometimes buggy, if so try [this example](https://codesandbox.io/s/useportal-in-nextjs-ux9nb))
 - [Modal Example (useModal) - create-react-app](https://codesandbox.io/s/w6jp7z4pkk)
 - [Dropdown Example (useDropdown) - Next.js](https://codesandbox.io/s/useportal-usedropdown-587fo)
 - [Tooltip Example (useTooltip) - Next.js](https://codesandbox.io/s/useportal-usedropdown-dgesf)
 
-
-Installation
-------------
+## Installation
 
 ```shell
 yarn add react-useportal      or     npm i -S react-useportal
 ```
 
-Usage
------
+## Usage
 
 ### Stateless
-```jsx 
-import usePortal from 'react-useportal'
+
+```jsx
+import usePortal from "react-useportal";
 
 const App = () => {
-  const { Portal } = usePortal()
+  const { Portal } = usePortal();
 
-  return (
-    <Portal>
-      This text is portaled at the end of document.body!
-    </Portal>
-  )
-}
+  return <Portal>This text is portaled at the end of document.body!</Portal>;
+};
 
 const App = () => {
   const { Portal } = usePortal({
-    bindTo: document && document.getElementById('san-francisco')
-  })
+    bindTo: document && document.getElementById("san-francisco"),
+  });
 
-  return (
-    <Portal>
-      This text is portaled into San Francisco!
-    </Portal>
-  )
-}
+  return <Portal>This text is portaled into San Francisco!</Portal>;
+};
 ```
 
 ### With State
-```jsx 
-import usePortal from 'react-useportal'
+
+```jsx
+import usePortal from "react-useportal";
 
 const App = () => {
-  var { openPortal, closePortal, isOpen, Portal } = usePortal()
+  var { openPortal, closePortal, isOpen, Portal } = usePortal();
 
   // want to use array destructuring? You can do that too
-  var [openPortal, closePortal, isOpen, Portal] = usePortal()
+  var [openPortal, closePortal, isOpen, Portal] = usePortal();
 
   return (
     <>
-      <button onClick={openPortal}>
-        Open Portal
-      </button>
+      <button onClick={openPortal}>Open Portal</button>
       {isOpen && (
         <Portal>
           <p>
-            This Portal handles its own state.{' '}
-            <button onClick={closePortal}>Close me!</button>, hit ESC or
-            click outside of me.
+            This Portal handles its own state.{" "}
+            <button onClick={closePortal}>Close me!</button>, hit ESC or click
+            outside of me.
           </p>
         </Portal>
       )}
     </>
-  )
-}
+  );
+};
 ```
 
 ### Need Animations?
-```jsx 
-import usePortal from 'react-useportal'
+
+```jsx
+import usePortal from "react-useportal";
 
 const App = () => {
-  const { openPortal, closePortal, isOpen, Portal } = usePortal()
+  const { openPortal, closePortal, isOpen, Portal } = usePortal();
   return (
     <>
-      <button onClick={openPortal}>
-        Open Portal
-      </button>
+      <button onClick={openPortal}>Open Portal</button>
       <Portal>
-        <p className={isOpen ? 'animateIn' : 'animateOut'}>
-          This Portal handles its own state.{' '}
-          <button onClick={closePortal}>Close me!</button>, hit ESC or
-          click outside of me.
+        <p className={isOpen ? "animateIn" : "animateOut"}>
+          This Portal handles its own state.{" "}
+          <button onClick={closePortal}>Close me!</button>, hit ESC or click
+          outside of me.
         </p>
       </Portal>
     </>
-  )
-}
+  );
+};
 ```
 
 ### Customizing the Portal directly
+
 By using `onOpen`, `onClose` or any other event handler, you can modify the `Portal` and return it. See [useDropdown](https://codesandbox.io/s/useportal-usedropdown-587fo) for a working example. It's important that you pass the `event` object to `openPortal` and `togglePortal` otherwise you will need to attach a `ref` to the clicked element.
 
 ```jsx
@@ -161,42 +151,47 @@ const useModal = () => {
         top: 50%;
         transform: translate(-50%,-50%);
         z-index: 1000;
-      `
-    }
-  })
+      `;
+    },
+  });
 
   return {
     Modal: Portal,
     openModal: openPortal,
     toggleModal: togglePortal,
     closeModal: closePortal,
-    isOpen
-  }
-}
+    isOpen,
+  };
+};
 
 const App = () => {
-  const { openModal, closeModal, isOpen, Modal } = useModal()
-  
-  return <>
-    <button onClick={e => openModal(e)}>Open Modal<button>
-    {isOpen && (
-      <Modal>
-        This will dynamically center to the middle of the screen regardless of the size of what you put in here
-      </Modal>
-    )}
-  </>
-}
+  const { openModal, closeModal, isOpen, Modal } = useModal();
+
+  return (
+    <>
+      <button onClick={(e) => openModal(e)}>Open Modal</button>
+      {isOpen && (
+        <Modal>
+          This will dynamically center to the middle of the screen regardless of
+          the size of what you put in here
+        </Modal>
+      )}
+    </>
+  );
+};
 ```
 
 **Make sure you are passing the html synthetic event to the `openPortal` and `togglePortal` . i.e. `onClick={e => openPortal(e)}`**
 
 ### Usage with a `ref`
+
 If for some reason, you don't want to pass around the `event` to `openPortal` or `togglePortal`, you can use a `ref` like this.
+
 ```jsx
-import usePortal from 'react-useportal'
+import usePortal from "react-useportal";
 
 const App = () => {
-  var { ref, openPortal, closePortal, isOpen, Portal } = usePortal()
+  var { ref, openPortal, closePortal, isOpen, Portal } = usePortal();
 
   return (
     <>
@@ -207,28 +202,28 @@ const App = () => {
       {isOpen && (
         <Portal>
           <p>
-            This Portal handles its own state.{' '}
-            <button onClick={closePortal}>Close me!</button>, hit ESC or
-            click outside of me.
+            This Portal handles its own state.{" "}
+            <button onClick={closePortal}>Close me!</button>, hit ESC or click
+            outside of me.
           </p>
         </Portal>
       )}
     </>
-  )
-}
+  );
+};
 ```
 
-Options
------
-| Option                | Description                                                                              |
-| --------------------- | ---------------------------------------------------------------------------------------- |
-| `closeOnOutsideClick` | This will close the portal when not clicking within the portal. Default is `true` |
-| `closeOnEsc`   | This will allow you to hit ESC and it will close the modal. Default is `true`    |
-| `bindTo` | This is the DOM node you want to attach the portal to. By default it attaches to `document.body` |
-| `isOpen` | This will be the default for the portal. Default is `false` |
-| `onOpen` | This is used to call something when the portal is opened and to modify the css of the portal directly |
-| `onClose` | This is used to call something when the portal is closed and to modify the css of the portal directly |
-| `onPortalClick` | This is fired whenever clicking on the `Portal` |
+## Options
+
+| Option                               | Description                                                                                                                                                                       |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `closeOnOutsideClick`                | This will close the portal when not clicking within the portal. Default is `true`                                                                                                 |
+| `closeOnEsc`                         | This will allow you to hit ESC and it will close the modal. Default is `true`                                                                                                     |
+| `bindTo`                             | This is the DOM node you want to attach the portal to. By default it attaches to `document.body`                                                                                  |
+| `isOpen`                             | This will be the default for the portal. Default is `false`                                                                                                                       |
+| `onOpen`                             | This is used to call something when the portal is opened and to modify the css of the portal directly                                                                             |
+| `onClose`                            | This is used to call something when the portal is closed and to modify the css of the portal directly                                                                             |
+| `onPortalClick`                      | This is fired whenever clicking on the `Portal`                                                                                                                                   |
 | html event handlers (i.e. `onClick`) | These can be used instead of `onOpen` to modify the css of the portal directly. [`onMouseEnter` and `onMouseLeave` example](https://codesandbox.io/s/useportal-usedropdown-dgesf) |
 
 ### Option Usage
@@ -261,20 +256,23 @@ const {
   // or that you are putting `openPortal` or `togglePortal` or `closePortal` on
   onPortalClick({ portal, targetEl, event }) {},
   // in addition, any event handler such as onClick, onMouseOver, etc will be handled the same
-  onClick({ portal, targetEl, event }) {}
-})
+  onClick({ portal, targetEl, event }) {},
+});
 ```
-Todos
-------
+
+## Todos
+
 - [ ] React Native support. [1](https://github.com/zenyr/react-native-portal) [2](https://github.com/cloudflare/react-gateway) [3](https://medium.com/@naorzruk/portals-in-react-native-22797ba8aa1b) [4](https://stackoverflow.com/questions/46505378/can-we-have-react-16-portal-functionality-react-native) [5](https://github.com/callstack/react-native-paper/blob/master/src/components/Portal/PortalManager.tsx) Probably going to have to add a `Provider`...
 - [ ] add correct typescript return types
 - [ ] add support for popup windows [resource 1](https://javascript.info/popup-windows) [resource 2](https://hackernoon.com/using-a-react-16-portal-to-do-something-cool-2a2d627b0202). Maybe something like
+
 ```jsx
-  const { openPortal, closePortal, isOpen, Portal } = usePortal({
-    popup: ['', '', 'width=600,height=400,left=200,top=200']
-  })
-  // window.open('', '', 'width=600,height=400,left=200,top=200')
+const { openPortal, closePortal, isOpen, Portal } = usePortal({
+  popup: ["", "", "width=600,height=400,left=200,top=200"],
+});
+// window.open('', '', 'width=600,height=400,left=200,top=200')
 ```
+
 - [ ] tests (priority)
 - [ ] maybe have a `<Provider order={['Portal', 'openPortal']} />` then you can change the order of the array destructuring syntax
 - [ ] fix code so maintainability is A
