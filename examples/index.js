@@ -1,4 +1,4 @@
-import React from 'react'
+import React , { useEffect, useState } from 'react'
 import { render } from 'react-dom'
 import usePortal from '../usePortal'
 
@@ -44,8 +44,8 @@ const Example2 = () => {
         <FirstPortal>
           I'm First.
           <button
-            onClick={() => {
-              openSecondPortal();
+            onClick={(e) => {
+              openSecondPortal(e);
               closeFirstPortal();
             }}
           >
@@ -60,6 +60,37 @@ const Example2 = () => {
       )}
     </>
   );
+}
+
+const Example3 = () => {
+  const { openPortal, closePortal, isOpen, Portal } = usePortal({
+    programmaticallyOpen: true,
+    onClose: () => setOpen(false)
+  })
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (open) {
+      openPortal()
+    } else {
+      closePortal()
+    }
+  }, [closePortal, open, openPortal, setOpen])
+
+  return (
+    <>
+      <h3>Example 3</h3>
+      <button onClick={() => setOpen(true)}>Programmatically Open Portal</button>
+      {isOpen && (
+        <Portal>
+          <div>
+            This portal was opened via a state change
+            <button onClick={() => setOpen(false)}>Programmatically Close Portal</button>
+          </div>
+        </Portal>
+      )}
+    </>
+  )
 }
 
 // this should attach via `bind` so whatever you "bind" it to, you can click
@@ -87,6 +118,7 @@ function App() {
     <>
       <Exmaple1 />
       <Example2 />
+      <Example3 />
     </>
   )
 }
