@@ -2,7 +2,7 @@
   "name": "react-useportal",
   "version": "1.0.12",
   "homepage": "https://codesandbox.io/s/w6jp7z4pkk",
-  "main": "./usePortal.js",
+  "main": "dist/useSSR.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/alex-cory/react-useportal.git"
