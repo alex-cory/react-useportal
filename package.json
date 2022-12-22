@@ -27,6 +27,10 @@
     "lint:fix": "npm run lint -- --fix",
     "lint:watch": "watch 'yarn lint'"
   },
+  "peerDependencies": {
+    "react": "^16.8.6 || ^17.0.0 || ^18.2.0",
+    "react-dom": "^16.8.6 || ^17.0.0 || ^18.2.0"
+  },
   "dependencies": {
     "use-ssr": "^1.0.22"
   },
