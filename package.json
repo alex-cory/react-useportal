@@ -32,7 +32,7 @@
     "react-dom": "^16.8.6 || ^17.0.0 || ^18.0.0"
   },
   "dependencies": {
-    "use-ssr": "^1.0.22"
+    "use-ssr": "^1.0.25"
   },
   "devDependencies": {
     "@testing-library/react-hooks": "^3.0.0",
