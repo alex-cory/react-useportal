@@ -62,7 +62,13 @@ Installation
 ------------
 
 ```shell
-yarn add react-useportal      or     npm i -S react-useportal
+yarn add react-useportal
+```
+
+or
+
+```shell
+npm i -S react-useportal
 ```
 
 Usage
