@@ -148,7 +148,7 @@ const App = () => {
 ```
 
 ### Customizing the Portal directly
-By using `onOpen`, `onClose` or any other event handler, you can modify the `Portal` and return it. See [useDropdown](https://codesandbox.io/s/useportal-usedropdown-587fo) for a working example. It's important that you pass the `event` object to `openPortal` and `togglePortal` otherwise you will need to attach a `ref` to the clicked element.
+By using `onOpen`, `onClose` or any other event handler, you can modify the `Portal` and return it. See [useDropdown](https://codesandbox.io/s/useportal-usedropdown-587fo) for a working example. If opening the portal from a click event it's important that you pass the `event` object to `openPortal` and `togglePortal` otherwise you will need to attach a `ref` to the clicked element (if you want to be able to open the portal without passing an event you will need to set `programmaticallyOpen` to `true`).
 
 ```jsx
 const useModal = () => {
@@ -191,7 +191,7 @@ const App = () => {
 **Make sure you are passing the html synthetic event to the `openPortal` and `togglePortal` . i.e. `onClick={e => openPortal(e)}`**
 
 ### Usage with a `ref`
-If for some reason, you don't want to pass around the `event` to `openPortal` or `togglePortal`, you can use a `ref` like this.
+If for some reason, you don't want to pass around the `event` to `openPortal` or `togglePortal` and you're not using `programmaticallyOpen`, you can use a `ref` like this.
 ```jsx
 import usePortal from 'react-useportal'
 
@@ -230,6 +230,7 @@ Options
 | `onClose` | This is used to call something when the portal is closed and to modify the css of the portal directly |
 | `onPortalClick` | This is fired whenever clicking on the `Portal` |
 | html event handlers (i.e. `onClick`) | These can be used instead of `onOpen` to modify the css of the portal directly. [`onMouseEnter` and `onMouseLeave` example](https://codesandbox.io/s/useportal-usedropdown-dgesf) |
+| `programmaticallyOpen` | This option allows you to open or toggle the portal without passing in an event. Default is `false` |
 
 ### Option Usage
 
@@ -240,7 +241,7 @@ const {
   togglePortal,
   isOpen,
   Portal,
-  // if you don't pass an event to openPortal, closePortal, or togglePortal, you will need
+  // if you don't pass an event to openPortal, closePortal, or togglePortal and you're not using programmaticallyOpen, you will need
   // to put this on the element you want to interact with/click
   ref,
   // if for some reason you want to interact directly with the portal, you can with this ref

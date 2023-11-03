@@ -27,12 +27,13 @@ export type UsePortalOptions = {
   onOpen?: CustomEventHandler
   onClose?: CustomEventHandler
   onPortalClick?: CustomEventHandler
+  programmaticallyOpen?: boolean
 } & CustomEventHandlers
 
 type UsePortalObjectReturn = {} // TODO
 type UsePortalArrayReturn = [] // TODO
 
-export const errorMessage1 = 'You must either add a `ref` to the element you are interacting with or pass an `event` to openPortal(e) or togglePortal(e).'
+export const errorMessage1 = 'You must either add a `ref` to the element you are interacting with or pass an `event` to openPortal(e) or togglePortal(e) when the `programmaticallyOpen` option is not set to `true`.'
 
 export default function usePortal({
   closeOnOutsideClick = true,
@@ -42,6 +43,7 @@ export default function usePortal({
   onOpen,
   onClose,
   onPortalClick,
+  programmaticallyOpen = false,
   ...eventHandlers
 }: UsePortalOptions = {}): any {
   const { isServer, isBrowser } = useSSR()
@@ -96,7 +98,7 @@ export default function usePortal({
     // for some reason, when we don't have the event argument, there
     // is a weird race condition. Would like to see if we can remove
     // setTimeout, but for now this works
-    if (targetEl.current == null) {
+    if (targetEl.current == null && !programmaticallyOpen) {
       setTimeout(() => setOpen(true), 0)
       throw Error(errorMessage1)
     }
@@ -123,7 +125,8 @@ export default function usePortal({
 
   const handleOutsideMouseClick = useCallback((e: MouseEvent): void => {
     const containsTarget = (target: HTMLElRef) => target.current.contains(e.target as HTMLElement)
-    if (containsTarget(portal) || (e as any).button !== 0 || !open.current || containsTarget(targetEl)) return
+    // There might not be a targetEl if the portal was opened programmatically.
+    if (containsTarget(portal) || (e as any).button !== 0 || !open.current || (targetEl.current && containsTarget(targetEl))) return
     if (closeOnOutsideClick) closePortal(e)
   }, [isServer, closePortal, closeOnOutsideClick, portal])
 

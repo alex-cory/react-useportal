@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react-hooks'
 import usePortal, { errorMessage1 } from './usePortal'
 
 describe('usePortal', () => {
@@ -15,5 +15,12 @@ describe('usePortal', () => {
     } catch(err) {
       expect(err.message).toBe(errorMessage1)
     }
+  })
+
+  it('does not error if programmatically opening the portal', () => {
+    const { result } = renderHook(() => usePortal({ programmaticallyOpen: true }))
+    act(() => {
+      expect(result.current.openPortal).not.toThrow()
+    });
   })
 })
