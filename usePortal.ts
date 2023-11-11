@@ -175,8 +175,13 @@ export default function usePortal({
     }
   }, [isServer, handleOutsideMouseClick, handleKeydown, elToMountTo, portal])
 
-  const Portal = useCallback(({ children }: { children: ReactNode }) => {
-    if (portal.current != null) return createPortal(children, portal.current)
+  const Portal = useCallback(({ children, className }: { children: ReactNode, className: string }) => {
+    if (portal.current != null) {
+      if(className && portal.current){
+        portal.current.className = className
+      }
+      return createPortal(children, portal.current)
+    }
     return null
   }, [portal])
 
